@@ -31,6 +31,25 @@
           ]"
         ></v-text-field>
 
+        <v-text-field
+          v-model="fieldValues.password"
+          label="Password"
+          type="password"
+          hint="Leave this field empty to create game without password"
+          dark
+          clearable
+          autocomplete="off"
+          :rules="[
+            (value) =>
+              !value || (value && value.match(/^.{3,24}$/))
+                ? ruleValid('password')
+                : ruleInvalid(
+                    'password',
+                    'Your password must have between 3~24 characters'
+                  ),
+          ]"
+        ></v-text-field>
+
         <v-switch
           v-model="fieldValues.allowCheats"
           label="Allow Cheats"
@@ -78,12 +97,14 @@ export default {
   data: () => ({
     fieldValues: {
       name: null,
+      password: null,
       allowCheats: null,
       maxPlayers: "Max",
       blacklistedCountries: [],
     },
     validFields: {
       name: false,
+      password: true,
     },
     maxPlayersSelectValues: ["Max", 2, 4, 8, 10, 16, 24, 48, 64, 100],
     blacklistedCountriesComboboxValues: [
@@ -103,10 +124,12 @@ export default {
   methods: {
     clear() {
       this.fieldValues.name = null;
+      this.fieldValues.password = null;
       this.fieldValues.allowCheats = null;
       this.fieldValues.maxPlayers = "Max";
       this.fieldValues.blacklistedCountries = [];
       this.validFields.name = false;
+      this.validFields.password = true;
     },
     ruleValid(fieldName) {
       this.validFields[fieldName] = true;
@@ -123,6 +146,7 @@ export default {
     submit() {
       const payload = {
         name: this.fieldValues.name,
+        password: this.fieldValues.password,
         options: {
           allowCheats: Boolean(this.fieldValues.allowCheats),
           maxPlayers: this.fieldValues.maxPlayers,

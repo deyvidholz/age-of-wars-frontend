@@ -90,6 +90,21 @@ export default new Vuex.Store({
       startPickingPhase: {
         show: false,
       },
+      opinionRanking: {
+        show: false,
+      },
+      economicRanking: {
+        show: false,
+      },
+      oilRanking: {
+        show: false,
+      },
+      militaryRanking: {
+        show: false,
+      },
+      aggressivenessRanking: {
+        show: false,
+      },
     },
 
     mainMenu: {

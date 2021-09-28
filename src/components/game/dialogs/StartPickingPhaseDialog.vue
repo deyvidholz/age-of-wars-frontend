@@ -9,7 +9,7 @@
       <LinearLoading />
 
       <v-card-title>
-        <v-icon color="blue" class="mr-2">
+        <v-icon color="yellow" class="mr-2">
           mdi-earth-arrow-right
         </v-icon>
 

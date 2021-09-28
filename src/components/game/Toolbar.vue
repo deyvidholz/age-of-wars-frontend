@@ -33,6 +33,7 @@
           class="mr-5"
           v-bind="attrs"
           v-on="on"
+          @click="$store.state.dialogs.economicRanking.show = true"
         >
           <v-icon>mdi-cash</v-icon>
           <span>
@@ -68,20 +69,33 @@
           class="mr-5"
           v-bind="attrs"
           v-on="on"
+          @click="$store.state.dialogs.oilRanking.show = true"
         >
           <v-icon>mdi-water</v-icon>
           <span>
-            {{ formatMoney($store.state.playerCountry.oil, true) }}
+            {{ formatMoney($store.state.playerCountry.oil, true, false) }}
           </span>
           <span v-if="$store.state.playerCountry.oilIncoming > 0">
             <small class="ml-2">
-              (+{{ formatMoney($store.state.playerCountry.oilIncoming, true) }})
+              (+{{
+                formatMoney(
+                  $store.state.playerCountry.oilIncoming,
+                  true,
+                  false
+                )
+              }})
             </small>
           </span>
 
           <span class="red--text" v-else>
             <small class="ml-2">
-              ({{ formatMoney($store.state.playerCountry.oilIncoming, true) }})
+              ({{
+                formatMoney(
+                  $store.state.playerCountry.oilIncoming,
+                  true,
+                  false
+                )
+              }})
             </small>
           </span>
         </v-btn>
@@ -98,6 +112,7 @@
           class="mr-5"
           v-bind="attrs"
           v-on="on"
+          @click="$store.state.dialogs.militaryRanking.show = true"
         >
           <v-icon>mdi-account-multiple</v-icon>
           <span>{{ $store.state.playerCountry.divisions }}</span>
@@ -108,7 +123,15 @@
 
     <v-tooltip bottom>
       <template v-slot:activator="{ on, attrs }">
-        <v-btn outlined tile color="teal" class="mr-5" v-bind="attrs" v-on="on">
+        <v-btn
+          outlined
+          tile
+          color="teal"
+          class="mr-5"
+          v-bind="attrs"
+          v-on="on"
+          @click="$store.state.dialogs.militaryRanking.show = true"
+        >
           <v-icon>mdi-tank</v-icon>
           <span>{{ $store.state.playerCountry.tanks }}</span>
         </v-btn>
@@ -118,7 +141,15 @@
 
     <v-tooltip bottom>
       <template v-slot:activator="{ on, attrs }">
-        <v-btn outlined tile color="red" class="mr-5" v-bind="attrs" v-on="on">
+        <v-btn
+          outlined
+          tile
+          color="red"
+          class="mr-5"
+          v-bind="attrs"
+          v-on="on"
+          @click="$store.state.dialogs.militaryRanking.show = true"
+        >
           <v-icon>mdi-airplane</v-icon>
           <span>{{ $store.state.playerCountry.aircrafts }}</span>
         </v-btn>
@@ -128,7 +159,15 @@
 
     <v-tooltip bottom>
       <template v-slot:activator="{ on, attrs }">
-        <v-btn outlined tile color="blue" class="mr-5" v-bind="attrs" v-on="on">
+        <v-btn
+          outlined
+          tile
+          color="blue"
+          class="mr-5"
+          v-bind="attrs"
+          v-on="on"
+          @click="$store.state.dialogs.militaryRanking.show = true"
+        >
           <v-icon>mdi-ferry</v-icon>
           <span>{{ $store.state.playerCountry.warships }}</span>
         </v-btn>
@@ -145,6 +184,7 @@
           class="mr-5"
           v-bind="attrs"
           v-on="on"
+          @click="$store.state.dialogs.aggressivenessRanking.show = true"
         >
           <v-icon>mdi-skull-crossbones</v-icon>
           <span>{{ $store.state.playerCountry.aggressiveness }}</span>
@@ -170,6 +210,24 @@
         </v-btn>
       </template>
       <span>Decisions</span>
+    </v-tooltip>
+
+    <span class="mr-5 grey--text">|</span>
+
+    <v-tooltip bottom>
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn
+          outlined
+          color="green"
+          class="mr-5"
+          v-bind="attrs"
+          v-on="on"
+          x-small
+        >
+          <span>{{ $store.state.game.stageCount }}º Stg</span>
+        </v-btn>
+      </template>
+      <span>Current Stage</span>
     </v-tooltip>
   </v-toolbar>
 </template>

@@ -63,7 +63,10 @@
           </v-tooltip>
         </div>
 
-        <div v-if="isOwner">
+        <div
+          v-if="isOwner"
+          @click="$store.state.dialogs.oilRanking.show = true"
+        >
           <v-tooltip top>
             <template v-slot:activator="{ on, attrs }">
               <v-icon
@@ -101,7 +104,10 @@
 
         <v-row>
           <v-col sm="12" class="d-flex flex-wrap justify-space-between pb-0">
-            <div>
+            <div
+              class="cursor-pointer"
+              @click="$store.state.dialogs.militaryRanking.show = true"
+            >
               <v-tooltip top>
                 <template v-slot:activator="{ on, attrs }">
                   <v-icon v-bind="attrs" v-on="on" color="yellow" class="mr-1"
@@ -119,7 +125,10 @@
               </v-tooltip>
             </div>
 
-            <div>
+            <div
+              class="cursor-pointer"
+              @click="$store.state.dialogs.militaryRanking.show = true"
+            >
               <v-tooltip top>
                 <template v-slot:activator="{ on, attrs }">
                   <v-icon v-bind="attrs" v-on="on" color="teal" class="mr-1"
@@ -137,7 +146,10 @@
               </v-tooltip>
             </div>
 
-            <div>
+            <div
+              class="cursor-pointer"
+              @click="$store.state.dialogs.militaryRanking.show = true"
+            >
               <v-tooltip top>
                 <template v-slot:activator="{ on, attrs }">
                   <v-icon v-bind="attrs" v-on="on" color="red" class="mr-1"
@@ -157,7 +169,10 @@
           </v-col>
 
           <v-col sm="12" class="d-flex flex-wrap justify-space-between">
-            <div>
+            <div
+              class="cursor-pointer"
+              @click="$store.state.dialogs.militaryRanking.show = true"
+            >
               <v-tooltip top>
                 <template v-slot:activator="{ on, attrs }">
                   <v-icon v-bind="attrs" v-on="on" color="blue" class="mr-1"
@@ -174,7 +189,10 @@
               </v-tooltip>
             </div>
 
-            <div>
+            <div
+              class="cursor-pointer"
+              @click="$store.state.dialogs.aggressivenessRanking.show = true"
+            >
               <v-tooltip top>
                 <template v-slot:activator="{ on, attrs }">
                   <v-icon
@@ -199,15 +217,17 @@
                   $store.state.playerCountry.name
                 ]
               "
+              class="cursor-pointer"
+              @click="$store.state.dialogs.opinionRanking.show = true"
             >
               <v-tooltip top>
                 <template v-slot:activator="{ on, attrs }">
                   <v-icon
                     v-bind="attrs"
                     v-on="on"
-                    color="blue lighten-1"
+                    :color="opinionIcon.color"
                     class="mr-1"
-                    >mdi-heart</v-icon
+                    >{{ opinionIcon.icon }}</v-icon
                   >
                   <span
                     :class="
@@ -234,7 +254,10 @@
 
       <div class="text-left">
         <v-divider class="my-1" />
-        <div class="d-flex">
+        <div
+          class="d-flex cursor-pointer"
+          @click="$store.state.dialogs.economicRanking.show = true"
+        >
           <span class="mr-2"><strong>Incoming</strong>:</span>
 
           <div class="d-flex flex-wrap align-center">
@@ -325,6 +348,13 @@ export default {
   computed: {
     isOwner() {
       return this.$store.state.province.isOwner;
+    },
+    opinionIcon() {
+      return this.getOpinionIcon(
+        this.$store.state.province.country.opinions[
+          this.$store.state.playerCountry.name
+        ].value
+      );
     },
   },
 };

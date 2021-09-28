@@ -10,6 +10,11 @@
     <TargetInfo />
 
     <StartPickingPhaseDialog />
+    <OpinionRakingDialog />
+    <EconomicRankingDialog />
+    <OilRankingDialog />
+    <MilitaryRankingDialog />
+    <AggressivenessRankingDialog />
 
     <PickCountryButton />
     <NextTurnButton />
@@ -70,25 +75,16 @@ import StartPickingPhaseDialog from "@/components/game/dialogs/StartPickingPhase
 import PickCountryButton from "@/components/game/PickCountryButton";
 import NextTurnButton from "@/components/game/NextTurnButton";
 
+import OpinionRakingDialog from "@/components/game/dialogs/OpinionRakingDialog";
+import EconomicRankingDialog from "@/components/game/dialogs/EconomicRankingDialog";
+import OilRankingDialog from "@/components/game/dialogs/OilRankingDialog";
+import MilitaryRankingDialog from "@/components/game/dialogs/MilitaryRankingDialog";
+import AggressivenessRankingDialog from "@/components/game/dialogs/AggressivenessRankingDialog";
+
 export default {
   name: "Game",
 
-  data: () => ({
-    tabContent: [
-      {
-        id: "tab-1",
-        icon: "mdi-phone",
-        title: "Recents",
-        content: `Not found`,
-      },
-      {
-        id: "tab-2",
-        icon: "mdi-account-multiple",
-        title: "Contacts",
-        content: `List of contacts`,
-      },
-    ],
-  }),
+  data: () => ({}),
 
   components: {
     Chip,
@@ -109,6 +105,11 @@ export default {
     StartPickingPhaseDialog,
     PickCountryButton,
     NextTurnButton,
+    OpinionRakingDialog,
+    EconomicRankingDialog,
+    OilRankingDialog,
+    MilitaryRankingDialog,
+    AggressivenessRankingDialog,
   },
 
   methods: {

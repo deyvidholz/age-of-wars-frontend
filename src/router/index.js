@@ -7,11 +7,20 @@ import MainMenu from "../views/MainMenu.vue";
 
 Vue.use(VueRouter);
 
+const redirectUnauthenticated = (to, from, next) => {
+  if (!localStorage.getItem("token")) {
+    return next({ name: "SignIn" });
+  }
+
+  next();
+};
+
 const routes = [
   {
     path: "/",
     name: "Game",
     component: Game,
+    beforeEnter: redirectUnauthenticated,
   },
   {
     path: "/sign-in",
@@ -27,6 +36,7 @@ const routes = [
     path: "/main-menu",
     name: "MainMenu",
     component: MainMenu,
+    beforeEnter: redirectUnauthenticated,
   },
 ];
 
