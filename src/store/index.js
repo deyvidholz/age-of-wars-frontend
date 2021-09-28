@@ -5,6 +5,9 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    isRequesting: false,
+    alreadyPicked: false,
+
     showLeftSidebar: false,
     showRightSidebar: true,
     rightSidebarMini: true,
@@ -13,6 +16,18 @@ export default new Vuex.Store({
     defaultCountryFlag: "http://localhost:3001/imgs/flags/default.png",
     defaultProvinceImgPath: "http://localhost:3001/imgs/provinces/",
     defaultProvinceFlag: "http://localhost:3001/imgs/provinces/default.jpg",
+
+    game: {
+      id: null,
+      name: null,
+      stage: null,
+      stageCount: -1,
+      owner: {
+        id: null,
+        name: null,
+      },
+      players: [],
+    },
 
     playerCountry: {
       flag: null,
@@ -33,6 +48,7 @@ export default new Vuex.Store({
     provinceElement: null,
     provinceElementOriginalColor: "#ffffff",
     province: {
+      id: null,
       mapRef: null,
       img: null,
       name: null,
@@ -47,6 +63,8 @@ export default new Vuex.Store({
         taxation: 0,
       },
       country: {
+        id: null,
+        name: null,
         aggressiveness: {},
         army: {},
         estimatedArmy: {},
@@ -58,20 +76,7 @@ export default new Vuex.Store({
 
     svgpanzoom: null,
 
-    notifications: [
-      {
-        icon: "mdi-information-variant",
-        text: "Hello World 1",
-      },
-      {
-        icon: "mdi-information-variant",
-        text: "Hello World 2",
-      },
-      {
-        icon: "mdi-information-variant",
-        text: "Hello World 3",
-      },
-    ],
+    notifications: [],
 
     dialogs: {
       info: {
@@ -80,27 +85,26 @@ export default new Vuex.Store({
         description: null,
         isError: false,
         handler: () => {},
+        onClose: () => {},
       },
-      error: {
+      startPickingPhase: {
         show: false,
-        title: null,
-        description: null,
       },
     },
 
     mainMenu: {
       dialogs: {
         newGame: {
-          show: true,
+          show: false,
         },
         loadGame: {
-          show: true,
+          show: false,
         },
         joinGame: {
-          show: true,
+          show: false,
         },
         settings: {
-          show: true,
+          show: false,
         },
       },
     },

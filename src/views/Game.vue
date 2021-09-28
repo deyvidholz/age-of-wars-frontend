@@ -9,6 +9,11 @@
     <WorldMap />
     <TargetInfo />
 
+    <StartPickingPhaseDialog />
+
+    <PickCountryButton />
+    <NextTurnButton />
+
     <!-- <Chip color="blue" icon="mdi-account" title="Account" />
 
     <LinearLoading />
@@ -61,6 +66,10 @@ import Tabs from "@/components/game/Tabs";
 import WorldMap from "@/components/game/maps/World";
 import TargetInfo from "@/components/game/TargetInfo";
 
+import StartPickingPhaseDialog from "@/components/game/dialogs/StartPickingPhaseDialog";
+import PickCountryButton from "@/components/game/PickCountryButton";
+import NextTurnButton from "@/components/game/NextTurnButton";
+
 export default {
   name: "Game",
 
@@ -97,6 +106,45 @@ export default {
     Tabs,
     WorldMap,
     TargetInfo,
+    StartPickingPhaseDialog,
+    PickCountryButton,
+    NextTurnButton,
+  },
+
+  methods: {
+    setGameData(game) {
+      this.$store.state.game.id = game.id;
+      this.$store.state.game.name = game.name;
+      this.$store.state.game.stage = game.stage;
+      this.$store.state.game.stageCount = game.stageCount;
+      this.$store.state.game.owner.id = game.owner.id;
+      this.$store.state.game.owner.name = game.owner.nickname;
+
+      this.$store.state.game.players = game.players.map((player) => ({
+        id: player.id,
+        name: player.name,
+      }));
+    },
+    setPlayerCountryData(playerCountry) {
+      this.$store.state.playerCountry.flag = `${this.$store.state.defaultCountryFlagPath}/${playerCountry.flag}`;
+      this.$store.state.playerCountry.name = playerCountry.name;
+
+      this.$store.state.playerCountry.balance = playerCountry.economy.balance;
+      this.$store.state.playerCountry.balanceIncoming =
+        playerCountry.incoming.balance;
+      this.$store.state.playerCountry.oil = playerCountry.resources.oil;
+      this.$store.state.playerCountry.oilIncoming = playerCountry.incoming.oil;
+
+      this.$store.state.playerCountry.divisions = playerCountry.army.divisions;
+      this.$store.state.playerCountry.tanks = playerCountry.army.tanks;
+      this.$store.state.playerCountry.aircrafts = playerCountry.army.aircrafts;
+      this.$store.state.playerCountry.warships = playerCountry.army.warships;
+
+      this.$store.state.playerCountry.aggressiveness =
+        playerCountry.aggressiveness.current;
+
+      this.$store.state.playerCountry.decisions = playerCountry.decisions;
+    },
   },
 
   mounted() {
@@ -118,28 +166,19 @@ export default {
         const playerCountry = getPlayerCountry(playerId, game.countries);
 
         fillProvinces(game);
+        this.setGameData(game);
+
+        if (["CLOSED", "IN_LOBBY"].includes(game.stage)) {
+          this.$store.state.dialogs.startPickingPhase.show = true;
+        }
 
         if (!playerCountry) {
+          this.$store.state.alreadyPicked = false;
           return;
         }
 
-        this.$store.state.playerCountry.flag = `${this.$store.state.defaultCountryFlagPath}/${playerCountry.flag}`;
-        this.$store.state.playerCountry.name = playerCountry.name;
-
-        this.$store.state.playerCountry.balance = playerCountry.economy.balance;
-        this.$store.state.playerCountry.balanceIncoming = 0;
-        this.$store.state.playerCountry.oil = playerCountry.resources.oil;
-        this.$store.state.playerCountry.oilIncoming = 0;
-
-        this.$store.state.playerCountry.divisions =
-          playerCountry.army.divisions;
-        this.$store.state.playerCountry.tanks = playerCountry.army.tanks;
-        this.$store.state.playerCountry.aircrafts =
-          playerCountry.army.aircrafts;
-        this.$store.state.playerCountry.warships = playerCountry.army.warships;
-
-        this.$store.state.playerCountry.aggressiveness =
-          playerCountry.aggressiveness.current;
+        this.$store.state.alreadyPicked = true;
+        this.setPlayerCountryData(playerCountry);
       })
       .catch((err) => {
         console.log(err.response);
@@ -169,16 +208,16 @@ export default {
           .get(`/countries/provinces/${element.id}`)
           .then(({ data }) => {
             const province = data.data.province;
-            this.$store.state.province = { ...province };
+            this.$store.state.province = province;
             this.$store.state.isRequestingProvince = false;
           })
           .catch((error) => {
             this.$store.state.isRequestingProvince = false;
-            this.$store.state.dialogs.error.title = "An error occurred";
-            this.$store.state.dialogs.error.description =
+            this.$store.state.dialogs.info.title = "An error occurred";
+            this.$store.state.dialogs.info.description =
               error.response.data.message;
 
-            this.$store.state.dialogs.error.show = true;
+            this.$store.state.dialogs.info.show = true;
             element.style.fill = "#ffffff";
           });
       });

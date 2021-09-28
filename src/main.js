@@ -11,6 +11,7 @@ import vuetify from "./plugins/vuetify";
 // const socket = io("localhost:3000");
 // Vue.use(VueSocketIOExt, socket, { store });
 
+import "./helpers/helpers";
 import "./plugins/axios";
 import "./assets/css/style.css";
 

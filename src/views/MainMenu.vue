@@ -11,18 +11,30 @@
         <v-card-text>
           <div class="d-flex flex-column">
             <v-btn tile color="blue-grey darken-1 mb-2" @click="newGame()">
+              <v-icon class="mr-2" color="blue-grey darken-4">
+                mdi-earth-box-plus
+              </v-icon>
               New Game
             </v-btn>
 
             <v-btn tile color="blue-grey darken-1 mb-2" @click="loadGame()">
+              <v-icon class="mr-2" color="blue-grey darken-4">
+                mdi-content-save-move
+              </v-icon>
               Load Game
             </v-btn>
 
             <v-btn tile color="blue-grey darken-1 mb-2" @click="joinGame()">
+              <v-icon class="mr-2" color="blue-grey darken-4">
+                mdi-earth-arrow-right
+              </v-icon>
               Join Game
             </v-btn>
 
             <v-btn tile color="blue-grey darken-1 mb-2" @click="settings()">
+              <v-icon class="mr-2" color="blue-grey darken-4">
+                mdi-cog
+              </v-icon>
               Settings
             </v-btn>
           </div>
@@ -37,15 +49,24 @@
     </div>
 
     <NewGameDialog />
+    <LoadGameDialog />
+    <JoinGameDialog />
+    <SettingsDialog />
   </div>
 </template>
 
 <script>
 import NewGameDialog from "@/components/main-menu/NewGameDialog";
+import LoadGameDialog from "@/components/main-menu/LoadGameDialog";
+import JoinGameDialog from "@/components/main-menu/JoinGameDialog";
+import SettingsDialog from "@/components/main-menu/SettingsDialog";
 
 export default {
   components: {
     NewGameDialog,
+    LoadGameDialog,
+    JoinGameDialog,
+    SettingsDialog,
   },
 
   data: () => ({}),
@@ -55,19 +76,15 @@ export default {
       window.open("https://github.com/deyvidholz");
     },
     newGame() {
-      console.log("newGame");
       this.$store.state.mainMenu.dialogs.newGame.show = true;
     },
     loadGame() {
-      console.log("loadGame");
       this.$store.state.mainMenu.dialogs.loadGame.show = true;
     },
     joinGame() {
-      console.log("joinGame");
       this.$store.state.mainMenu.dialogs.joinGame.show = true;
     },
     settings() {
-      console.log("settings");
       this.$store.state.mainMenu.dialogs.settings.show = true;
     },
   },

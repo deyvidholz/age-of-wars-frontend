@@ -99,12 +99,7 @@ export default {
           // TODO use cookies to save jwt token
           localStorage.setItem("token", res.data.data.jwt.token);
           localStorage.setItem("playerId", res.data.data.playerId);
-
-          this.$store.state.dialogs.info.handler = () => {
-            this.$router.push({ name: "MainMenu" });
-          };
-          this.$store.state.dialogs.info.title = res.data.message;
-          this.$store.state.dialogs.info.show = true;
+          this.$router.push({ name: "MainMenu" });
         })
         .catch((err) => {
           console.log(err);

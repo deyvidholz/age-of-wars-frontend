@@ -70,11 +70,24 @@ img {
 
 .notification {
   position: fixed;
-  bottom: 3rem;
+  top: 6rem;
   left: 0;
   right: 0;
   margin: 0 auto;
+  width: fit-content;
   z-index: 999;
-  display: flex;
-  justify-content: center;
+}
+
+.loader {
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+}
+
+.next-turn {
+  position: fixed;
+  bottom: 1rem;
+  right: 86px;
+  z-index: 1001;
 }

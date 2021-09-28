@@ -27,7 +27,7 @@
       </template>
 
       <v-card-actions class="justify-end">
-        <v-btn color="red" text @click="$store.state.dialogs.info.show = false">
+        <v-btn color="red" text @click="closeTrigger()">
           Close
         </v-btn>
 
@@ -55,13 +55,19 @@ export default {
   }),
 
   methods: {
+    closeTrigger() {
+      this.$store.state.dialogs.info.onClose();
+      this.$store.state.dialogs.info.show = false;
+      this.$store.state.dialogs.info.onClose = () => {};
+    },
     trigger() {
+      this.$store.state.dialogs.info.handler();
       this.$store.state.dialogs.info.show = false;
       this.$store.state.dialogs.info.isError = false;
       this.$store.state.dialogs.info.description = null;
       this.$store.state.dialogs.info.title = "{TITLE}";
-      this.$store.state.dialogs.info.handler();
       this.$store.state.dialogs.info.handler = () => {};
+      this.$store.state.dialogs.info.onClose = () => {};
     },
   },
 };

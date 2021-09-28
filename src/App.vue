@@ -6,12 +6,16 @@
       :key="index"
       :index="index"
       :icon="notification.icon || 'mdi-information-variant'"
+      :iconColor="notification.iconColor"
+      :flag="notification.flag"
+      :countryName="notification.countryName"
       :title="notification.text"
       :handler="
         notification.handler ||
           (() => $store.state.notifications.splice(index, 1))
       "
     />
+    <Loader />
     <v-main>
       <router-view />
     </v-main>
@@ -21,6 +25,7 @@
 <script>
 import Dialog from "@/components/Dialog";
 import Notification from "@/components/Notification";
+import Loader from "@/components/Loader";
 
 export default {
   name: "App",
@@ -28,6 +33,7 @@ export default {
   components: {
     Dialog,
     Notification,
+    Loader,
   },
 
   data: () => ({

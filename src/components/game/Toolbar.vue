@@ -1,6 +1,7 @@
 <template>
   <v-toolbar dense dark elevation="1" class="toolbar pr-12" height="64px">
     <v-app-bar-nav-icon
+      v-if="$store.state.game.stage === 'RUNNING'"
       @click="$store.state.showLeftSidebar = true"
     ></v-app-bar-nav-icon>
 
@@ -28,16 +29,31 @@
         <v-btn
           outlined
           tile
-          color="green"
+          color="green accent-3"
           class="mr-5"
           v-bind="attrs"
           v-on="on"
         >
           <v-icon>mdi-cash</v-icon>
-          <span>{{ $store.state.playerCountry.balance }}</span>
-          <small class="ml-2"
-            >(+{{ $store.state.playerCountry.balanceIncoming }})</small
-          >
+          <span>
+            {{ formatMoney($store.state.playerCountry.balance, true) }}
+          </span>
+
+          <span v-if="$store.state.playerCountry.balanceIncoming > 0">
+            <small class="ml-2">
+              (+{{
+                formatMoney($store.state.playerCountry.balanceIncoming, true)
+              }})
+            </small>
+          </span>
+
+          <span class="red--text" v-else>
+            <small class="ml-2">
+              ({{
+                formatMoney($store.state.playerCountry.balanceIncoming, true)
+              }})
+            </small>
+          </span>
         </v-btn>
       </template>
       <span>Balance</span>
@@ -48,16 +64,26 @@
         <v-btn
           outlined
           tile
-          color="brown"
+          color="brown lighten-1"
           class="mr-5"
           v-bind="attrs"
           v-on="on"
         >
           <v-icon>mdi-water</v-icon>
-          <span>{{ $store.state.playerCountry.oil }}</span>
-          <small class="ml-2"
-            >(+{{ $store.state.playerCountry.oilIncoming }})</small
-          >
+          <span>
+            {{ formatMoney($store.state.playerCountry.oil, true) }}
+          </span>
+          <span v-if="$store.state.playerCountry.oilIncoming > 0">
+            <small class="ml-2">
+              (+{{ formatMoney($store.state.playerCountry.oilIncoming, true) }})
+            </small>
+          </span>
+
+          <span class="red--text" v-else>
+            <small class="ml-2">
+              ({{ formatMoney($store.state.playerCountry.oilIncoming, true) }})
+            </small>
+          </span>
         </v-btn>
       </template>
       <span>Oil</span>
@@ -115,7 +141,7 @@
         <v-btn
           outlined
           tile
-          color="purple"
+          color="purple accent-2"
           class="mr-5"
           v-bind="attrs"
           v-on="on"
@@ -149,7 +175,12 @@
 </template>
 
 <script>
+import LinearLoading from "@/components/LinearLoading";
+
 export default {
+  components: {
+    LinearLoading,
+  },
   props: {
     countryFlag: {
       default: "",

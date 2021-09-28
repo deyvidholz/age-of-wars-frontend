@@ -76,7 +76,6 @@
 <script>
 export default {
   data: () => ({
-    dialog: true,
     fieldValues: {
       name: null,
       allowCheats: null,
@@ -97,11 +96,18 @@ export default {
 
   computed: {
     canSubmit() {
-      return this.validFields.name;
+      return this.validFields.name && !this.$store.state.isRequesting;
     },
   },
 
   methods: {
+    clear() {
+      this.fieldValues.name = null;
+      this.fieldValues.allowCheats = null;
+      this.fieldValues.maxPlayers = "Max";
+      this.fieldValues.blacklistedCountries = [];
+      this.validFields.name = false;
+    },
     ruleValid(fieldName) {
       this.validFields[fieldName] = true;
       return true;
@@ -112,11 +118,7 @@ export default {
     },
     cancel() {
       this.$store.state.mainMenu.dialogs.newGame.show = false;
-      this.fieldValues.name = null;
-      this.fieldValues.allowCheats = null;
-      this.fieldValues.maxPlayers = "Max";
-      this.fieldValues.blacklistedCountries = [];
-      this.validFields.name = false;
+      this.clear();
     },
     submit() {
       const payload = {
@@ -134,14 +136,27 @@ export default {
           localStorage.setItem("gameId", res.data.data.game.id);
 
           this.$store.state.dialogs.info.handler = () => {
-            this.$router.push({ name: "Game" });
+            this.http
+              .get(`/games/start/${res.data.data.game.id}`)
+              .then((response) => {
+                this.$router.push({ name: "Game" });
+              })
+              .catch((err) => {
+                this.$store.state.dialogs.info.title =
+                  err.response.data.message;
+                this.$store.state.dialogs.info.isError = true;
+                this.$store.state.dialogs.info.show = true;
+              });
+          };
+
+          this.$store.state.dialogs.info.onClose = () => {
+            this.cancel();
           };
 
           this.$store.state.dialogs.info.title = res.data.message;
           this.$store.state.dialogs.info.show = true;
         })
         .catch((err) => {
-          console.log(err);
           this.$store.state.dialogs.info.title = err.response.data.message;
           this.$store.state.dialogs.info.isError = true;
           this.$store.state.dialogs.info.show = true;

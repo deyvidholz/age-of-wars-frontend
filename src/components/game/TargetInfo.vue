@@ -163,24 +163,28 @@
                   <v-icon v-bind="attrs" v-on="on" color="blue" class="mr-1"
                     >mdi-ferry</v-icon
                   >
-                  <span v-if="isOwner">0</span>
-                  <span v-else>0</span>
+                  <span v-if="isOwner">{{
+                    $store.state.province.country.army.warships || 0
+                  }}</span>
+                  <span v-else>{{
+                    $store.state.province.country.estimatedArmy.warships || 0
+                  }}</span>
                 </template>
-                <span v-if="isOwner">{{
-                  $store.state.province.country.army.warships || 0
-                }}</span>
-                <span v-else>{{
-                  $store.state.province.country.estimatedArmy.warships || 0
-                }}</span>
+                Warships
               </v-tooltip>
             </div>
 
             <div>
               <v-tooltip top>
                 <template v-slot:activator="{ on, attrs }">
-                  <v-icon v-bind="attrs" v-on="on" color="purple" class="mr-1"
-                    >mdi-skull-crossbones</v-icon
+                  <v-icon
+                    v-bind="attrs"
+                    v-on="on"
+                    color="purple accent-2"
+                    class="mr-1"
                   >
+                    mdi-skull-crossbones
+                  </v-icon>
                   <span>{{
                     $store.state.province.country.aggressiveness.current || 0
                   }}</span>
@@ -205,7 +209,15 @@
                     class="mr-1"
                     >mdi-heart</v-icon
                   >
-                  <span>
+                  <span
+                    :class="
+                      getOpinionColor(
+                        $store.state.province.country.opinions[
+                          $store.state.playerCountry.name
+                        ].value
+                      )
+                    "
+                  >
                     {{
                       $store.state.province.country.opinions[
                         $store.state.playerCountry.name
@@ -229,8 +241,23 @@
             <v-tooltip top>
               <template v-slot:activator="{ on, attrs }">
                 <div class="mr-2" v-bind="attrs" v-on="on">
-                  <v-icon class="mr-1" color="green">mdi-cash </v-icon>
-                  <span>{{ $store.state.province.incoming.balance }}</span>
+                  <v-icon color="green accent-3">mdi-cash </v-icon>
+                  <span class="green--text text--lighten-2">
+                    {{
+                      formatMoney($store.state.province.incoming.balance, true)
+                    }}
+                  </span>
+
+                  <span>
+                    <small>
+                      ({{
+                        formatMoney(
+                          $store.state.province.country.incoming.balance,
+                          true
+                        )
+                      }})
+                    </small>
+                  </span>
                 </div>
               </template>
               <span>Balance Incoming</span>
