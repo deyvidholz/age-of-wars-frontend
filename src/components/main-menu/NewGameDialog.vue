@@ -107,17 +107,35 @@ export default {
       password: true,
     },
     maxPlayersSelectValues: ["Max", 2, 4, 8, 10, 16, 24, 48, 64, 100],
-    blacklistedCountriesComboboxValues: [
-      "United States",
-      "United Kingdom",
-      "China",
-      "India",
-    ],
+    blacklistedCountriesComboboxValues: [],
   }),
 
   computed: {
+    isShowing() {
+      return this.$store.state.mainMenu.dialogs.newGame.show;
+    },
     canSubmit() {
       return this.validFields.name && !this.$store.state.isRequesting;
+    },
+  },
+
+  watch: {
+    isShowing(newValue) {
+      if (!newValue) {
+        return;
+      }
+
+      this.http
+        .get("/available-countries")
+        .then(
+          (res) =>
+            (this.blacklistedCountriesComboboxValues = res.data.data.countries)
+        )
+        .catch((err) => {
+          this.$store.state.dialogs.info.title = err.response.data.message;
+          this.$store.state.dialogs.info.isError = true;
+          this.$store.state.dialogs.info.show = true;
+        });
     },
   },
 
@@ -149,7 +167,10 @@ export default {
         password: this.fieldValues.password,
         options: {
           allowCheats: Boolean(this.fieldValues.allowCheats),
-          maxPlayers: this.fieldValues.maxPlayers,
+          maxPlayers:
+            this.fieldValues.maxPlayers === "Max"
+              ? -1
+              : this.fieldValues.maxPlayers,
           blacklistedCountries: this.fieldValues.blacklistedCountries,
         },
       };

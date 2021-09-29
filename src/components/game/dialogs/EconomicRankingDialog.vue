@@ -37,9 +37,16 @@
                   </div>
 
                   <div>
-                    <span class="green--text text--lighten-2">{{
-                      formatMoney(item.value, true)
-                    }}</span>
+                    <span
+                      class="green--text text--lighten-2"
+                      v-if="item.value >= 0"
+                    >
+                      {{ formatMoney(item.value, true) }}
+                    </span>
+
+                    <span class="red--text text--lighten-2" v-else>
+                      {{ formatMoney(item.value, true) }}
+                    </span>
                   </div>
                 </v-list-item-title>
               </v-list-item-content>
