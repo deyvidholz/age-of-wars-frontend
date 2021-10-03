@@ -1,5 +1,9 @@
 <template>
-  <v-dialog v-model="$store.state.dialogs.manageActions.show" width="520" scrollable>
+  <v-dialog
+    v-model="$store.state.dialogs.manageActions.show"
+    width="520"
+    scrollable
+  >
     <v-card color="grey darken-3" dark>
       <v-card-title>
         <v-icon color="indigo accent-2" class="mr-2">
@@ -93,6 +97,20 @@
                   <div class="mr-7">
                     <v-icon color="blue">mdi-ferry</v-icon>
                     {{ action.data.warships }}
+                  </div>
+                </div>
+
+                <div
+                  v-if="action.action.type === 'IMPROVE_PROVINCES'"
+                  class="d-flex"
+                >
+                  <div class="mr-7">
+                    <v-icon color="green accent-3">mdi-chart-areaspline</v-icon>
+                    {{ action.data.qty.production }}
+                  </div>
+                  <div class="mr-7">
+                    <v-icon color="green accent-3">mdi-boom-gate-up</v-icon>
+                    {{ action.data.qty.taxation }}
                   </div>
                 </div>
               </v-list-item-content>

@@ -133,7 +133,7 @@ export default {
       {
         keyCode: "KeyF",
         shortcut: "F",
-        title: "Provinces",
+        title: "Improve Province",
         icon: "mdi-earth-box",
         color: "pink",
         handler: ($store) => {

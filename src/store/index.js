@@ -65,7 +65,10 @@ export default new Vuex.Store({
       hasCoast: null,
       isIsland: null,
       passives: [],
-      incoming: {},
+      incoming: {
+        balance: 0,
+        oil: 0,
+      },
       levels: {
         production: 0,
         taxation: 0,
