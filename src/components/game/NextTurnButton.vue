@@ -18,10 +18,15 @@
 <script>
 export default {
   methods: {
+    clearActions() {
+      this.$store.state.actions = [];
+    },
+    getActions() {
+      return this.$store.state.actions.map((action) => action.action);
+    },
     nextTurn() {
       const payload = {
-        // TODO mount actions
-        actions: [],
+        actions: this.getActions(),
       };
 
       this.http
@@ -29,6 +34,7 @@ export default {
         .then((res) => {
           // TODO check if it's necessary do something here
           console.log("res", res);
+          this.clearActions();
         })
         .catch((err) => {
           console.log(err);

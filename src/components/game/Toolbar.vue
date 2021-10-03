@@ -27,6 +27,7 @@
     <v-tooltip bottom>
       <template v-slot:activator="{ on, attrs }">
         <v-btn
+          small
           outlined
           tile
           color="green accent-3"
@@ -63,6 +64,7 @@
     <v-tooltip bottom>
       <template v-slot:activator="{ on, attrs }">
         <v-btn
+          small
           outlined
           tile
           color="brown lighten-1"
@@ -106,6 +108,7 @@
     <v-tooltip bottom>
       <template v-slot:activator="{ on, attrs }">
         <v-btn
+          small
           outlined
           tile
           color="yellow"
@@ -124,6 +127,7 @@
     <v-tooltip bottom>
       <template v-slot:activator="{ on, attrs }">
         <v-btn
+          small
           outlined
           tile
           color="teal"
@@ -142,6 +146,7 @@
     <v-tooltip bottom>
       <template v-slot:activator="{ on, attrs }">
         <v-btn
+          small
           outlined
           tile
           color="red"
@@ -160,6 +165,7 @@
     <v-tooltip bottom>
       <template v-slot:activator="{ on, attrs }">
         <v-btn
+          small
           outlined
           tile
           color="blue"
@@ -178,6 +184,7 @@
     <v-tooltip bottom>
       <template v-slot:activator="{ on, attrs }">
         <v-btn
+          small
           outlined
           tile
           color="purple accent-2"
@@ -198,6 +205,7 @@
     <v-tooltip bottom>
       <template v-slot:activator="{ on, attrs }">
         <v-btn
+          small
           outlined
           tile
           color="orange"

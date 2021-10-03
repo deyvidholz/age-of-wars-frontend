@@ -16,6 +16,14 @@
     <MilitaryRankingDialog />
     <AggressivenessRankingDialog />
 
+    <ManageActionsDialog />
+    <ChangeFocusDialog />
+    <RelationsDialog />
+    <ShopDialog />
+    <ManageArmyDialog />
+    <OverviewDialog />
+    <ProvinceInfoDialog />
+
     <PickCountryButton />
     <NextTurnButton />
 
@@ -81,6 +89,14 @@ import OilRankingDialog from "@/components/game/dialogs/OilRankingDialog";
 import MilitaryRankingDialog from "@/components/game/dialogs/MilitaryRankingDialog";
 import AggressivenessRankingDialog from "@/components/game/dialogs/AggressivenessRankingDialog";
 
+import ManageActionsDialog from "@/components/game/dialogs/ManageActionsDialog";
+import ChangeFocusDialog from "@/components/game/dialogs/ChangeFocusDialog";
+import RelationsDialog from "@/components/game/dialogs/RelationsDialog";
+import ShopDialog from "@/components/game/dialogs/ShopDialog";
+import ManageArmyDialog from "@/components/game/dialogs/ManageArmyDialog";
+import OverviewDialog from "@/components/game/dialogs/OverviewDialog";
+import ProvinceInfoDialog from "@/components/game/dialogs/ProvinceInfoDialog";
+
 export default {
   name: "Game",
 
@@ -110,6 +126,13 @@ export default {
     OilRankingDialog,
     MilitaryRankingDialog,
     AggressivenessRankingDialog,
+    ManageActionsDialog,
+    ChangeFocusDialog,
+    RelationsDialog,
+    ShopDialog,
+    ManageArmyDialog,
+    OverviewDialog,
+    ProvinceInfoDialog,
   },
 
   methods: {
@@ -127,6 +150,7 @@ export default {
       }));
     },
     setPlayerCountryData(playerCountry) {
+      this.$store.state.playerCountry.id = playerCountry.id;
       this.$store.state.playerCountry.flag = `${this.$store.state.defaultCountryFlagPath}/${playerCountry.flag}`;
       this.$store.state.playerCountry.name = playerCountry.name;
 
@@ -145,6 +169,14 @@ export default {
         playerCountry.aggressiveness.current;
 
       this.$store.state.playerCountry.decisions = playerCountry.decisions;
+
+      this.$store.state.playerCountry.allies = playerCountry.allies;
+      this.$store.state.playerCountry.enemies = playerCountry.enemies;
+      this.$store.state.playerCountry.inWarWith = playerCountry.inWarWith;
+      this.$store.state.playerCountry.guaranteeingIndependence =
+        playerCountry.guaranteeingIndependence;
+      this.$store.state.playerCountry.independenceGuaranteedBy =
+        playerCountry.independenceGuaranteedBy;
     },
   },
 
@@ -204,7 +236,9 @@ export default {
 
         element.style.fill = "red";
 
+        this.$store.state.selfCountryOverview = false;
         this.$store.state.isRequestingProvince = true;
+
         this.http
           .get(`/countries/provinces/${element.id}`)
           .then(({ data }) => {
@@ -221,6 +255,11 @@ export default {
             this.$store.state.dialogs.info.show = true;
             element.style.fill = "#ffffff";
           });
+      });
+
+      element.addEventListener("dblclick", (event) => {
+        event.preventDefault();
+        this.$store.state.dialogs.province.show = true;
       });
     });
   },

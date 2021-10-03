@@ -334,16 +334,37 @@
           >
         </v-tooltip>
       </div>
+
+      <div class="text-left">
+        <v-divider class="my-1" />
+        <strong>Owner</strong>:
+        <Chip
+          :small="true"
+          color="blue darken-1"
+          icon="mdi-robot"
+          title="BOT"
+          v-if="$store.state.province.country.isAi"
+        />
+
+        <span v-else>
+          <v-icon color="green accent-3" small>mdi-account</v-icon>
+          <span class="white--text">
+            {{ $store.state.province.country.owner.nickname }}
+          </span>
+        </span>
+      </div>
     </v-card-text>
   </v-card>
 </template>
 
 <script>
 import LinearLoading from "@/components/LinearLoading";
+import Chip from "@/components/Chip";
 
 export default {
   components: {
     LinearLoading,
+    Chip,
   },
   computed: {
     isOwner() {

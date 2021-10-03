@@ -9,9 +9,14 @@
     >
       <v-tabs-slider></v-tabs-slider>
 
-      <v-tab v-for="(tab, index) in data" :key="index" :href="`#${tab.id}`">
+      <v-tab
+        v-for="(tab, index) in data"
+        :key="index"
+        :href="`#${tab.id}`"
+        :disabled="tab.disabled"
+      >
         {{ tab.title }}
-        <v-icon>{{ tab.icon }}</v-icon>
+        <v-icon :color="tab.iconColor || 'white'">{{ tab.icon }}</v-icon>
       </v-tab>
     </v-tabs>
 

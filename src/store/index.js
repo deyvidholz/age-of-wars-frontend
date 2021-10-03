@@ -17,6 +17,9 @@ export default new Vuex.Store({
     defaultProvinceImgPath: "http://localhost:3001/imgs/provinces/",
     defaultProvinceFlag: "http://localhost:3001/imgs/provinces/default.jpg",
 
+    selfCountryOverview: false,
+    actions: [],
+
     game: {
       id: null,
       name: null,
@@ -30,6 +33,7 @@ export default new Vuex.Store({
     },
 
     playerCountry: {
+      id: null,
       flag: null,
       name: "{COUNTRY_NAME}",
       balance: 0,
@@ -42,6 +46,10 @@ export default new Vuex.Store({
       warships: 0,
       aggressiveness: 0,
       decisions: [],
+      allies: [],
+      enemies: [],
+      guaranteeingIndependence: [],
+      independenceGuaranteedBy: [],
     },
 
     isRequestingProvince: false,
@@ -65,6 +73,8 @@ export default new Vuex.Store({
       country: {
         id: null,
         name: null,
+        isAi: null,
+        owner: {},
         aggressiveness: {},
         army: {},
         estimatedArmy: {},
@@ -103,6 +113,27 @@ export default new Vuex.Store({
         show: false,
       },
       aggressivenessRanking: {
+        show: false,
+      },
+      manageActions: {
+        show: false,
+      },
+      changeFocus: {
+        show: false,
+      },
+      relations: {
+        show: false,
+      },
+      shop: {
+        show: false,
+      },
+      manageArmy: {
+        show: false,
+      },
+      overview: {
+        show: false,
+      },
+      province: {
         show: false,
       },
     },

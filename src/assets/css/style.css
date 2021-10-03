@@ -91,3 +91,25 @@ img {
   right: 86px;
   z-index: 1001;
 }
+
+.selected-focus {
+  border: 2px solid #ffeb3b;
+}
+
+.no-selection {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
+}
+
+.list {
+  width: fit-content;
+  max-width: 300px;
+}
+
+.v-input__control {
+  justify-content: center !important;
+}

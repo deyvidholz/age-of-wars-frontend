@@ -41,7 +41,7 @@
 
       <v-divider></v-divider>
 
-      <v-card-text class="py-4" style="height: 450px;">
+      <v-card-text class="py-4" style="height: 390px;">
         <h2 class="text-center green--text text--accent-3 mb-3">
           Current Players
         </h2>

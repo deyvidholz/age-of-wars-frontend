@@ -15,7 +15,7 @@
 
       <v-divider></v-divider>
 
-      <v-card-text class="py-4" style="height: 590px;">
+      <v-card-text class="py-4" style="height: 390px;">
         <v-list flat color="transparent">
           <v-list-item-group v-model="selectedItem" color="orange">
             <v-list-item v-for="(item, index) in items" :key="item.id">

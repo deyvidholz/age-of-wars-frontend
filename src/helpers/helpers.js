@@ -46,3 +46,43 @@ Vue.prototype.getOpinionIcon = (value) => {
     return { color: "yellow", icon: "mdi-heart-half-full" };
   }
 };
+
+Vue.prototype.sumMilitaryPowers = (mps) => {
+  const mp = mps.reduce(
+    (a, b) => ({
+      aircrafts: a.aircrafts + b.aircrafts,
+      divisions: a.divisions + b.divisions,
+      tanks: a.tanks + b.tanks,
+      warships: a.warships + b.warships,
+      total: a.total + b.total,
+    }),
+    {
+      aircrafts: 0,
+      divisions: 0,
+      tanks: 0,
+      total: 0,
+      warships: 0,
+    }
+  );
+
+  return mp;
+};
+
+Vue.prototype.sumArmies = (armies) => {
+  const army = armies.reduce(
+    (a, b) => ({
+      divisions: a.divisions + b.divisions,
+      tanks: a.tanks + b.tanks,
+      aircrafts: a.aircrafts + b.aircrafts,
+      warships: a.warships + b.warships,
+    }),
+    {
+      divisions: 0,
+      tanks: 0,
+      aircrafts: 0,
+      warships: 0,
+    }
+  );
+
+  return army;
+};
