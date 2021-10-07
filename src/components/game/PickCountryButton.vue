@@ -5,7 +5,7 @@
     color="red darken-2"
     tile
     dark
-    :disabled="!$store.state.province.country.id || $store.state.alreadyPicked"
+    :disabled="!canSubmit"
     @click="pickCountry()"
   >
     <v-icon>
@@ -34,8 +34,27 @@ export default {
     alreadyPicked: false,
   }),
 
+  computed: {
+    canSubmit() {
+      return (
+        this.$store.state.province.country.id &&
+        this.$store.state.province.country.isAi &&
+        !this.$store.state.alreadyPicked &&
+        !this.$store.state.isRequesting &&
+        !this.$store.state.isRequestingProvince
+      );
+    },
+  },
+
   methods: {
     pickCountry() {
+      this.$socket.client.emit("player:pick-country", {
+        ...this.getBaseData(),
+        countryId: this.$store.state.province.country.id,
+      });
+
+      return;
+
       const payload = {
         countryId: this.$store.state.province.country.id,
       };

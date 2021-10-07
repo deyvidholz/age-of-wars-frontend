@@ -27,6 +27,12 @@
     <PickCountryButton />
     <NextTurnButton />
 
+    <MessageDialog
+      v-for="(msg, index) in $store.state.playerCountry.messages"
+      :key="index"
+      :message="msg"
+    />
+
     <!-- <Chip color="blue" icon="mdi-account" title="Account" />
 
     <LinearLoading />
@@ -96,6 +102,7 @@ import ShopDialog from "@/components/game/dialogs/ShopDialog";
 import ManageArmyDialog from "@/components/game/dialogs/ManageArmyDialog";
 import OverviewDialog from "@/components/game/dialogs/OverviewDialog";
 import ProvinceInfoDialog from "@/components/game/dialogs/ProvinceInfoDialog";
+import MessageDialog from "@/components/game/dialogs/MessageDialog";
 
 export default {
   name: "Game",
@@ -133,6 +140,7 @@ export default {
     ManageArmyDialog,
     OverviewDialog,
     ProvinceInfoDialog,
+    MessageDialog,
   },
 
   methods: {
@@ -177,10 +185,55 @@ export default {
         playerCountry.guaranteeingIndependence;
       this.$store.state.playerCountry.independenceGuaranteedBy =
         playerCountry.independenceGuaranteedBy;
+
+      this.$store.state.playerCountry.messages = playerCountry.messages;
+    },
+    async setupGame(game = null) {
+      console.log("setupGame");
+      if (!game) {
+        try {
+          const res = await this.http.get(
+            `/games/find/${localStorage.getItem("gameId")}`
+          );
+
+          game = res.data.data.game;
+        } catch (err) {
+          console.log(err.response);
+          this.$store.state.dialogs.info.title = err.response.data.message;
+          this.$store.state.dialogs.info.isError = true;
+          this.$store.state.dialogs.info.show = true;
+        }
+      }
+
+      const playerId = localStorage.getItem("playerId");
+      const playerCountry = getPlayerCountry(playerId, game.countries);
+
+      fillProvinces(game);
+      this.setGameData(game);
+
+      this.$store.state.dialogs.startPickingPhase.show = [
+        "CLOSED",
+        "IN_LOBBY",
+      ].includes(game.stage);
+
+      if (!playerCountry) {
+        this.$store.state.alreadyPicked = false;
+        return;
+      }
+
+      console.log(playerCountry.messages);
+
+      this.$store.state.alreadyPicked = true;
+      this.setPlayerCountryData(playerCountry);
     },
   },
 
   mounted() {
+    this.$socket.client.emit("join-room", {
+      ...this.getBaseData(),
+      nickname: localStorage.getItem("playerNickname"),
+    });
+
     document.querySelector("body").addEventListener("keyup", (event) => {
       if (event.code !== "Space") {
         return;
@@ -191,34 +244,40 @@ export default {
       this.$store.state.svgpanzoom.fit();
     });
 
-    this.http
-      .get(`/games/find/${localStorage.getItem("gameId")}`)
-      .then(({ data }) => {
-        const game = data.data.game;
-        const playerId = localStorage.getItem("playerId");
-        const playerCountry = getPlayerCountry(playerId, game.countries);
+    this.setupGame();
 
-        fillProvinces(game);
-        this.setGameData(game);
+    // this.http
+    //   .get(`/games/find/${localStorage.getItem("gameId")}`)
+    //   .then(({ data }) => {
+    //     this.$socket.client.emit("join-room", {
+    //       ...this.getBaseData(),
+    //     });
 
-        if (["CLOSED", "IN_LOBBY"].includes(game.stage)) {
-          this.$store.state.dialogs.startPickingPhase.show = true;
-        }
+    //     const game = data.data.game;
+    //     const playerId = localStorage.getItem("playerId");
+    //     const playerCountry = getPlayerCountry(playerId, game.countries);
 
-        if (!playerCountry) {
-          this.$store.state.alreadyPicked = false;
-          return;
-        }
+    //     fillProvinces(game);
+    //     this.setGameData(game);
 
-        this.$store.state.alreadyPicked = true;
-        this.setPlayerCountryData(playerCountry);
-      })
-      .catch((err) => {
-        console.log(err.response);
-        this.$store.state.dialogs.info.title = err.response.data.message;
-        this.$store.state.dialogs.info.isError = true;
-        this.$store.state.dialogs.info.show = true;
-      });
+    //     if (["CLOSED", "IN_LOBBY"].includes(game.stage)) {
+    //       this.$store.state.dialogs.startPickingPhase.show = true;
+    //     }
+
+    //     if (!playerCountry) {
+    //       this.$store.state.alreadyPicked = false;
+    //       return;
+    //     }
+
+    //     this.$store.state.alreadyPicked = true;
+    //     this.setPlayerCountryData(playerCountry);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err.response);
+    //     this.$store.state.dialogs.info.title = err.response.data.message;
+    //     this.$store.state.dialogs.info.isError = true;
+    //     this.$store.state.dialogs.info.show = true;
+    //   });
 
     const elements = getAllProvinceElements();
 
@@ -262,6 +321,48 @@ export default {
         this.$store.state.dialogs.province.show = true;
       });
     });
+  },
+  sockets: {
+    "@player-disconnected"(payload) {
+      this.$store.state.notifications.push({
+        id: Date.now(),
+        text: `${payload.player.nickname} was disconnected`,
+      });
+    },
+    "player:start-picking-phase"(payload) {
+      console.log("player:start-picking-phase", payload);
+      // console.log("setupGame", this._vm.setupGame);
+      this.setupGame(payload.game);
+    },
+    "player:pick-country"(payload) {
+      console.log("player:pick-country", payload);
+
+      this.$store.state.notifications.push({
+        id: Date.now(),
+        flag: payload.country.flag,
+        countryName: payload.country.name,
+        text: `${payload.country.owner.nickname} picked ${payload.country.name}`,
+      });
+
+      if (payload.country.owner.id === localStorage.getItem("playerId")) {
+        localStorage.setItem("countryId", payload.country.id);
+      }
+
+      this.setupGame(payload.game);
+    },
+    "player:next-turn"(payload) {
+      console.log("player:next-turn", payload);
+      if (!payload.isNextTurn) {
+        this.$store.state.alreadyPlayed = true;
+        return;
+      }
+
+      this.setupGame(payload.game);
+      this.$store.state.alreadyPlayed = false;
+    },
+    "player:join-game"(payload) {
+      this.$store.state.game.players = payload.game.players;
+    },
   },
 };
 </script>

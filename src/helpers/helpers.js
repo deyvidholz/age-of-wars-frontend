@@ -86,3 +86,12 @@ Vue.prototype.sumArmies = (armies) => {
 
   return army;
 };
+
+Vue.prototype.getBaseData = () => {
+  return {
+    token: localStorage.getItem("token"),
+    gameId: localStorage.getItem("gameId"),
+    playerId: localStorage.getItem("playerId"),
+    countryId: localStorage.getItem("countryId"),
+  };
+};

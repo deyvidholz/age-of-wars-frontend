@@ -81,6 +81,7 @@
 
 <script>
 import LinearLoading from "@/components/LinearLoading";
+import { mapMutations } from "vuex";
 
 export default {
   components: {
@@ -94,11 +95,18 @@ export default {
 
   computed: {
     canSubmit() {
-      return !this.$store.state.isRequesting;
+      return !this.$store.state.isRequesting && this.isOwner;
+    },
+    isOwner() {
+      return (
+        this.$store.state.game.owner.id === localStorage.getItem("playerId")
+      );
     },
   },
 
   methods: {
+    ...mapMutations(["setupGameSave"]),
+
     copy() {
       const range = document.createRange();
       range.selectNode(document.getElementById("gameId"));
@@ -110,6 +118,12 @@ export default {
       this.copyText = "Copied!";
     },
     startPickingPhase() {
+      this.$socket.client.emit("player:start-picking-phase", {
+        ...this.getBaseData(),
+      });
+
+      return;
+
       this.http
         .get(`/games/start-picking-phase/${localStorage.getItem("gameId")}`)
         .then((res) => {
@@ -128,6 +142,12 @@ export default {
           this.$store.state.dialogs.info.show = true;
         });
     },
+  },
+  sockets: {
+    // "player:start-picking-phase": (payload) => {
+    //   console.log("player:start-picking-phase", payload);
+    //   this.$store.commit("setupGameSave", payload.game);
+    // },
   },
 };
 </script>

@@ -1,9 +1,5 @@
 <template>
-  <v-dialog
-    v-model="$store.state.mainMenu.dialogs.loadGame.show"
-    width="520"
-    persistent
-  >
+  <v-dialog v-model="$store.state.mainMenu.dialogs.loadGame.show" width="520">
     <v-card color="grey darken-3" dark>
       <v-card-title>
         <v-icon color="blue lighten-1" class="mr-2">
@@ -80,7 +76,7 @@
 
         <div>
           <v-btn color="red" text @click="cancel()">
-            Cancel
+            Close
           </v-btn>
 
           <v-btn

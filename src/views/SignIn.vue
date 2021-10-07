@@ -99,7 +99,9 @@ export default {
           // TODO use cookies to save jwt token
           localStorage.setItem("token", res.data.data.jwt.token);
           localStorage.setItem("playerId", res.data.data.playerId);
-          this.$router.push({ name: "MainMenu" });
+          localStorage.setItem("playerNickname", res.data.data.playerNickname);
+          localStorage.setItem("reloadAndRedirectToMainMenu", true);
+          location.reload();
         })
         .catch((err) => {
           console.log(err);
@@ -108,6 +110,17 @@ export default {
           this.$store.state.dialogs.info.show = true;
         });
     },
+  },
+
+  mounted() {
+    const redirect = localStorage.getItem("reloadAndRedirectToMainMenu");
+
+    if (!redirect) {
+      return;
+    }
+
+    localStorage.removeItem("reloadAndRedirectToMainMenu");
+    this.$router.push({ name: "MainMenu" });
   },
 };
 </script>

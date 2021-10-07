@@ -5,6 +5,7 @@
       v-for="(notification, index) in $store.state.notifications"
       :key="index"
       :index="index"
+      :id="notification.id"
       :icon="notification.icon || 'mdi-information-variant'"
       :iconColor="notification.iconColor"
       :flag="notification.flag"
@@ -39,5 +40,14 @@ export default {
   data: () => ({
     //
   }),
+
+  sockets: {
+    error(payload) {
+      console.log("socket-error", payload);
+      this.$store.state.dialogs.info.title =
+        payload.message || "An error occurred";
+      this.$store.state.dialogs.info.show = true;
+    },
+  },
 };
 </script>

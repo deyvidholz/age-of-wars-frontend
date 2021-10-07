@@ -97,22 +97,31 @@ export default {
     },
     submit() {
       const payload = {
+        ...this.getBaseData(),
         gameId: this.fieldValues.gameId,
         password: this.fieldValues.password,
       };
 
-      this.http
-        .post("/players/join-game", payload)
-        .then((res) => {
-          localStorage.setItem("gameId", res.data.data.game.id);
-          this.$router.push({ name: "Game" });
-        })
-        .catch((err) => {
-          console.log(err);
-          this.$store.state.dialogs.info.title = err.response.data.message;
-          this.$store.state.dialogs.info.isError = true;
-          this.$store.state.dialogs.info.show = true;
-        });
+      this.$socket.client.emit("player:join-game", payload);
+
+      // this.http
+      //   .post("/players/join-game", payload)
+      //   .then((res) => {
+      //     localStorage.setItem("gameId", res.data.data.game.id);
+      //     this.$router.push({ name: "Game" });
+      //   })
+      //   .catch((err) => {
+      //     console.log(err);
+      //     this.$store.state.dialogs.info.title = err.response.data.message;
+      //     this.$store.state.dialogs.info.isError = true;
+      //     this.$store.state.dialogs.info.show = true;
+      //   });
+    },
+  },
+  sockets: {
+    "player:join-game"(payload) {
+      localStorage.setItem("gameId", payload.game.id);
+      this.$router.push({ name: "Game" });
     },
   },
 };

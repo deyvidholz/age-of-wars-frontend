@@ -5,7 +5,7 @@
     color="orange darken-2"
     dark
     v-if="$store.state.game.stage === 'RUNNING'"
-    :disabled="$store.state.isRequesting"
+    :disabled="$store.state.isRequesting || $store.state.alreadyPlayed"
     @click="nextTurn()"
   >
     <v-icon>
@@ -25,6 +25,14 @@ export default {
       return this.$store.state.actions.map((action) => action.action);
     },
     nextTurn() {
+      this.$socket.client.emit("player:next-turn", {
+        ...this.getBaseData(),
+        actions: this.getActions(),
+      });
+
+      this.clearActions();
+
+      return;
       const payload = {
         actions: this.getActions(),
       };
@@ -42,6 +50,11 @@ export default {
           this.$store.state.dialogs.info.isError = true;
           this.$store.state.dialogs.info.show = true;
         });
+    },
+  },
+  sockets: {
+    "country:get@province": (payload) => {
+      console.log("getProvince", payload);
     },
   },
 };

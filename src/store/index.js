@@ -1,12 +1,16 @@
 import Vue from "vue";
 import Vuex from "vuex";
 
+import { getPlayerCountry } from "@/helpers/country";
+import { fillProvinces } from "@/helpers/map";
+
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
     isRequesting: false,
     alreadyPicked: false,
+    alreadyPlayed: false,
 
     showLeftSidebar: false,
     showRightSidebar: true,
@@ -50,6 +54,7 @@ export default new Vuex.Store({
       enemies: [],
       guaranteeingIndependence: [],
       independenceGuaranteedBy: [],
+      messages: [],
     },
 
     isRequestingProvince: false,
@@ -161,4 +166,5 @@ export default new Vuex.Store({
   mutations: {},
   actions: {},
   modules: {},
+  getters: {},
 });
