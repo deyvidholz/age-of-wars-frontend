@@ -105,7 +105,7 @@ export default {
       {
         keyCode: "KeyD",
         shortcut: "D",
-        title: "Manage Army",
+        title: "Dismiss Army",
         icon: "mdi-arrow-bottom-right-thick",
         color: "red",
         handler: ($store) => {

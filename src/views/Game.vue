@@ -23,6 +23,7 @@
     <ManageArmyDialog />
     <OverviewDialog />
     <ProvinceInfoDialog />
+    <DecisionsDialog />
 
     <PickCountryButton />
     <NextTurnButton />
@@ -32,34 +33,6 @@
       :key="index"
       :message="msg"
     />
-
-    <!-- <Chip color="blue" icon="mdi-account" title="Account" />
-
-    <LinearLoading />
-    <CircularLoading />
-
-    <Notification />
-
-    <ErrorAlert />
-    <InfoAlert />
-    <SuccessAlert />
-    <WarningAlert />
-
-    <Avatar />
-
-    <Tabs :data="tabContent">
-      <v-tab-item value="tab-1">
-        <v-card flat dark tile>
-          <v-card-text>Here's my content</v-card-text>
-        </v-card>
-      </v-tab-item>
-
-      <v-tab-item value="tab-2">
-        <v-card flat dark tile>
-          <v-card-text>Here's my content 2</v-card-text>
-        </v-card>
-      </v-tab-item>
-    </Tabs> -->
   </div>
 </template>
 
@@ -103,6 +76,7 @@ import ManageArmyDialog from "@/components/game/dialogs/ManageArmyDialog";
 import OverviewDialog from "@/components/game/dialogs/OverviewDialog";
 import ProvinceInfoDialog from "@/components/game/dialogs/ProvinceInfoDialog";
 import MessageDialog from "@/components/game/dialogs/MessageDialog";
+import DecisionsDialog from "@/components/game/dialogs/DecisionsDialog";
 
 export default {
   name: "Game",
@@ -141,6 +115,7 @@ export default {
     OverviewDialog,
     ProvinceInfoDialog,
     MessageDialog,
+    DecisionsDialog,
   },
 
   methods: {
@@ -150,11 +125,11 @@ export default {
       this.$store.state.game.stage = game.stage;
       this.$store.state.game.stageCount = game.stageCount;
       this.$store.state.game.owner.id = game.owner.id;
-      this.$store.state.game.owner.name = game.owner.nickname;
+      this.$store.state.game.owner.nickname = game.owner.nickname;
 
       this.$store.state.game.players = game.players.map((player) => ({
         id: player.id,
-        name: player.name,
+        nickname: player.nickname,
       }));
     },
     setPlayerCountryData(playerCountry) {
@@ -189,7 +164,6 @@ export default {
       this.$store.state.playerCountry.messages = playerCountry.messages;
     },
     async setupGame(game = null) {
-      console.log("setupGame");
       if (!game) {
         try {
           const res = await this.http.get(
@@ -221,7 +195,8 @@ export default {
         return;
       }
 
-      console.log(playerCountry.messages);
+      console.log("messages", playerCountry.messages);
+      console.log("decisions", playerCountry.decisions);
 
       this.$store.state.alreadyPicked = true;
       this.setPlayerCountryData(playerCountry);
@@ -245,39 +220,6 @@ export default {
     });
 
     this.setupGame();
-
-    // this.http
-    //   .get(`/games/find/${localStorage.getItem("gameId")}`)
-    //   .then(({ data }) => {
-    //     this.$socket.client.emit("join-room", {
-    //       ...this.getBaseData(),
-    //     });
-
-    //     const game = data.data.game;
-    //     const playerId = localStorage.getItem("playerId");
-    //     const playerCountry = getPlayerCountry(playerId, game.countries);
-
-    //     fillProvinces(game);
-    //     this.setGameData(game);
-
-    //     if (["CLOSED", "IN_LOBBY"].includes(game.stage)) {
-    //       this.$store.state.dialogs.startPickingPhase.show = true;
-    //     }
-
-    //     if (!playerCountry) {
-    //       this.$store.state.alreadyPicked = false;
-    //       return;
-    //     }
-
-    //     this.$store.state.alreadyPicked = true;
-    //     this.setPlayerCountryData(playerCountry);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err.response);
-    //     this.$store.state.dialogs.info.title = err.response.data.message;
-    //     this.$store.state.dialogs.info.isError = true;
-    //     this.$store.state.dialogs.info.show = true;
-    //   });
 
     const elements = getAllProvinceElements();
 

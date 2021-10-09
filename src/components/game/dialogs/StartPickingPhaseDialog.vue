@@ -48,7 +48,7 @@
         <v-row class="justify-center">
           <v-col md="4" class="text-center">
             <v-icon color="orange">mdi-crown</v-icon>
-            {{ $store.state.game.owner.name }}
+            {{ $store.state.game.owner.nickname }}
           </v-col>
 
           <v-col
@@ -58,7 +58,7 @@
             :key="player.id"
           >
             <v-icon color="green accent-3">mdi-account</v-icon>
-            {{ $store.state.game.owner.name }}
+            {{ player.nickname }}
           </v-col>
         </v-row>
       </v-card-text>
@@ -143,11 +143,9 @@ export default {
         });
     },
   },
-  sockets: {
-    // "player:start-picking-phase": (payload) => {
-    //   console.log("player:start-picking-phase", payload);
-    //   this.$store.commit("setupGameSave", payload.game);
-    // },
+
+  mounted() {
+    console.log(this.$store.state.game);
   },
 };
 </script>

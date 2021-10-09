@@ -212,6 +212,7 @@
           class="mr-5"
           v-bind="attrs"
           v-on="on"
+          @click="$store.state.dialogs.decisions.show = true"
         >
           <v-icon>mdi-notebook-edit</v-icon>
           <span>{{ $store.state.playerCountry.decisions.length }}</span>

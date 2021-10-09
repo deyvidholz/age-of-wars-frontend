@@ -3,8 +3,9 @@
     v-model="$store.state.dialogs.relations.show"
     width="920"
     v-if="target.id && simulation"
+    scrollable
   >
-    <v-card color="grey darken-3" dark scrollable>
+    <v-card color="grey darken-3" dark>
       <v-card-title>
         <v-icon color="orange" class="mr-2">
           mdi-handshake

@@ -1,9 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
 
-import { getPlayerCountry } from "@/helpers/country";
-import { fillProvinces } from "@/helpers/map";
-
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -142,6 +139,9 @@ export default new Vuex.Store({
         show: false,
       },
       province: {
+        show: false,
+      },
+      decisions: {
         show: false,
       },
     },

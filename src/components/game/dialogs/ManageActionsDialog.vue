@@ -56,7 +56,7 @@
                 </v-list-item-title>
 
                 <div
-                  v-if="action.action.type === 'DISBAND_ARMY'"
+                  v-if="action.action.type === 'DISMISS_ARMY'"
                   class="d-flex"
                 >
                   <div class="mr-7">

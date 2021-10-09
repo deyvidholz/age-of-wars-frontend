@@ -203,7 +203,7 @@ export default {
 
     setAction() {
       const actionIndex = this.$store.state.actions.findIndex(
-        (action) => action.action.type === "DISBAND_ARMY"
+        (action) => action.action.type === "DISMISS_ARMY"
       );
 
       if (actionIndex !== -1) {
@@ -213,11 +213,11 @@ export default {
       this.$store.state.actions.push({
         icon: "mdi-arrow-bottom-right-thick",
         iconColor: "red lighten-2",
-        description: `Disband army`,
+        description: `Dismiss army`,
         data: { ...this.qty },
         action: {
-          type: "DISBAND_ARMY",
-          data: { ...this.qty },
+          type: "DISMISS_ARMY",
+          data: { qty: this.qty },
         },
       });
 
