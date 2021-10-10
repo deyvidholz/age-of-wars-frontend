@@ -102,6 +102,7 @@ export default {
         password: this.fieldValues.password,
       };
 
+      this.$store.state.isRequesting = true;
       this.$socket.client.emit("player:join-game", payload);
 
       // this.http
@@ -120,6 +121,7 @@ export default {
   },
   sockets: {
     "player:join-game"(payload) {
+      this.$store.state.isRequesting = false;
       localStorage.setItem("gameId", payload.game.id);
       this.$router.push({ name: "Game" });
     },

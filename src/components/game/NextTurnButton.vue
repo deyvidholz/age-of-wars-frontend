@@ -25,6 +25,7 @@ export default {
       return this.$store.state.actions.map((action) => action.action);
     },
     nextTurn() {
+      this.$store.state.isRequesting = true;
       this.$socket.client.emit("player:next-turn", {
         ...this.getBaseData(),
         actions: this.getActions(),
@@ -55,6 +56,7 @@ export default {
   sockets: {
     "country:get@province": (payload) => {
       console.log("getProvince", payload);
+      this.$store.state.isRequesting = false;
     },
   },
 };

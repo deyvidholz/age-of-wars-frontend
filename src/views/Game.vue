@@ -204,6 +204,7 @@ export default {
   },
 
   mounted() {
+    this.$store.state.isRequesting = true;
     this.$socket.client.emit("join-room", {
       ...this.getBaseData(),
       nickname: localStorage.getItem("playerNickname"),
@@ -266,17 +267,20 @@ export default {
   },
   sockets: {
     "@player-disconnected"(payload) {
+      this.$store.state.isRequesting = false;
       this.$store.state.notifications.push({
         id: Date.now(),
         text: `${payload.player.nickname} was disconnected`,
       });
     },
     "player:start-picking-phase"(payload) {
+      this.$store.state.isRequesting = false;
       console.log("player:start-picking-phase", payload);
       // console.log("setupGame", this._vm.setupGame);
       this.setupGame(payload.game);
     },
     "player:pick-country"(payload) {
+      this.$store.state.isRequesting = false;
       console.log("player:pick-country", payload);
 
       this.$store.state.notifications.push({
@@ -293,6 +297,7 @@ export default {
       this.setupGame(payload.game);
     },
     "player:next-turn"(payload) {
+      this.$store.state.isRequesting = false;
       console.log("player:next-turn", payload);
       if (!payload.isNextTurn) {
         this.$store.state.alreadyPlayed = true;
@@ -303,6 +308,7 @@ export default {
       this.$store.state.alreadyPlayed = false;
     },
     "player:join-game"(payload) {
+      this.$store.state.isRequesting = false;
       this.$store.state.game.players = payload.game.players;
     },
   },

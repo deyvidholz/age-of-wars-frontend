@@ -48,6 +48,7 @@ export default {
 
   methods: {
     pickCountry() {
+      this.$store.state.isRequesting = true;
       this.$socket.client.emit("player:pick-country", {
         ...this.getBaseData(),
         countryId: this.$store.state.province.country.id,

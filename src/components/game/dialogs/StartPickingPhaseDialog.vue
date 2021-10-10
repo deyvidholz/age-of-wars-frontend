@@ -118,6 +118,7 @@ export default {
       this.copyText = "Copied!";
     },
     startPickingPhase() {
+      this.$store.state.isRequesting = true;
       this.$socket.client.emit("player:start-picking-phase", {
         ...this.getBaseData(),
       });

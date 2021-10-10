@@ -43,6 +43,7 @@ export default {
 
   sockets: {
     error(payload) {
+      this.$store.state.isRequesting = false;
       console.log("socket-error", payload);
       this.$store.state.dialogs.info.title =
         payload.message || "An error occurred";

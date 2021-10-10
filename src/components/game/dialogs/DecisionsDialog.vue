@@ -105,6 +105,7 @@ export default {
   },
   sockets: {
     "player:next-turn"() {
+      this.$store.state.isRequesting = false;
       this.checked = [];
     },
   },
