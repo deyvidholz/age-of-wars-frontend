@@ -31,7 +31,22 @@
               {{ decision.description }}
             </v-card-title>
 
-            <v-card-actions class="justify-center">
+            <v-card-actions
+              class="justify-center"
+              v-if="decision.actionType === 'DEMAND'"
+            >
+              <v-btn
+                color="orange"
+                outlined
+                small
+                tile
+                @click="changeToDemandMapMode(decision.data.provincesToFill)"
+              >
+                Go To Demands
+              </v-btn>
+            </v-card-actions>
+
+            <v-card-actions class="justify-center" v-else>
               <v-btn
                 color="orange"
                 outlined
@@ -60,6 +75,8 @@
 </template>
 
 <script>
+import { fillProvinces, getAllProvinceElements } from "@/helpers/map";
+
 export default {
   data: () => ({
     checked: [],
@@ -101,6 +118,20 @@ export default {
           data: { ...data, decisionId },
         },
       });
+    },
+    changeToDemandMapMode(provincesToFill) {
+      const elements = getAllProvinceElements();
+
+      elements.forEach((element) => {
+        if (provincesToFill.includes(element.id)) {
+          element.style.fill = "#ff7a7a";
+        } else {
+          this.$store.state.provinceElementOriginalColor = "#333";
+          element.style.fill = "#333";
+        }
+      });
+
+      this.$store.state.demandMapMode = true;
     },
   },
   sockets: {

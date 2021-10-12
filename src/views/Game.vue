@@ -27,6 +27,7 @@
 
     <PickCountryButton />
     <NextTurnButton />
+    <DemandProvinceButton />
 
     <MessageDialog
       v-for="(msg, index) in $store.state.playerCountry.messages"
@@ -61,6 +62,7 @@ import TargetInfo from "@/components/game/TargetInfo";
 import StartPickingPhaseDialog from "@/components/game/dialogs/StartPickingPhaseDialog";
 import PickCountryButton from "@/components/game/PickCountryButton";
 import NextTurnButton from "@/components/game/NextTurnButton";
+import DemandProvinceButton from "@/components/game/DemandProvinceButton";
 
 import OpinionRakingDialog from "@/components/game/dialogs/OpinionRakingDialog";
 import EconomicRankingDialog from "@/components/game/dialogs/EconomicRankingDialog";
@@ -102,6 +104,7 @@ export default {
     StartPickingPhaseDialog,
     PickCountryButton,
     NextTurnButton,
+    DemandProvinceButton,
     OpinionRakingDialog,
     EconomicRankingDialog,
     OilRankingDialog,

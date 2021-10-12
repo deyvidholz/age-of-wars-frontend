@@ -92,6 +92,13 @@ img {
   z-index: 1001;
 }
 
+.demand-province {
+  position: fixed;
+  bottom: 4.2rem;
+  right: 86px;
+  z-index: 1001;
+}
+
 .selected-focus {
   border: 2px solid #ffeb3b;
 }

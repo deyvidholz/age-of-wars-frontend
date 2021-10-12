@@ -18,6 +18,7 @@ export default new Vuex.Store({
     defaultProvinceImgPath: "http://localhost:3001/imgs/provinces/",
     defaultProvinceFlag: "http://localhost:3001/imgs/provinces/default.jpg",
 
+    demandMapMode: false,
     selfCountryOverview: false,
     actions: [],
 
