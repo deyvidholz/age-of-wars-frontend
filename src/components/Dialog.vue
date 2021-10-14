@@ -10,8 +10,9 @@
           mdi-alert-octagon-outline
         </v-icon>
 
-        <v-icon color="green accent-3" class="mr-2" v-else>
-          mdi-check
+        <!-- TODO add dynamic icon -->
+        <v-icon color="yellow" class="mr-2" v-else>
+          mdi-information-variant
         </v-icon>
         {{ $store.state.dialogs.info.title }}
       </v-card-title>

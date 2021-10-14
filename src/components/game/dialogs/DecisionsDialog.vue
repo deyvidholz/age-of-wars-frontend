@@ -54,7 +54,9 @@
                 tile
                 v-for="(type, index) in decision.types"
                 :key="index"
-                @click="addAction(decision.id, type, decision.data)"
+                @click="
+                  addAction(decision.id, decision.actionType, decision.data)
+                "
               >
                 {{ type.replace(/_/g, " ") }}
               </v-btn>
@@ -114,22 +116,28 @@ export default {
         description: `Decision: ${type}`,
         decisionId,
         action: {
-          type: type,
+          type,
           data: { ...data, decisionId },
         },
       });
     },
     changeToDemandMapMode(provincesToFill) {
       const elements = getAllProvinceElements();
+      this.$store.state.provincesAllowedToDemand = [...provincesToFill];
 
       elements.forEach((element) => {
         if (provincesToFill.includes(element.id)) {
           element.style.fill = "#ff7a7a";
         } else {
-          this.$store.state.provinceElementOriginalColor = "#333";
           element.style.fill = "#333";
         }
       });
+
+      if (provincesToFill.includes(this.$store.state.province.mapRef)) {
+        this.$store.state.provinceElementOriginalColor = "#ff7a7a";
+      } else {
+        this.$store.state.provinceElementOriginalColor = "#333";
+      }
 
       this.$store.state.demandMapMode = true;
     },

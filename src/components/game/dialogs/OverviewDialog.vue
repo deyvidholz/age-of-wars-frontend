@@ -105,6 +105,9 @@
               <ul class="text-left list mx-auto" v-if="country.passives.length">
                 <li v-for="(passive, index) in country.passives" :key="index">
                   {{ passive.description || "{PASSIVE_DESCRIPTION}" }}
+                  <span v-if="passive.duration">
+                    | {{ passive.duration }}
+                  </span>
                 </li>
               </ul>
 
@@ -303,6 +306,9 @@
                   :key="index"
                 >
                   {{ passive.description || "{PASSIVE_DESCRIPTION}" }}
+                  <span v-if="passive.duration">
+                    | {{ passive.duration }}
+                  </span>
                 </li>
               </ul>
 
@@ -340,6 +346,9 @@
                   :key="index"
                 >
                   {{ passive.description || "{PASSIVE_DESCRIPTION}" }}
+                  <span v-if="passive.duration">
+                    | {{ passive.duration }}
+                  </span>
                 </li>
               </ul>
 

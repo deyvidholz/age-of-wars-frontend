@@ -175,7 +175,37 @@
                     </div>
                   </v-col>
 
-                  <v-col md="2" class="d-flex align-center justify-center">
+                  <v-col
+                    md="2"
+                    class="d-flex flex-column align-center justify-center"
+                  >
+                    <v-tooltip top>
+                      <template v-slot:activator="{ on, attrs }">
+                        <v-btn
+                          small
+                          outlined
+                          tile
+                          color="purple accent-2"
+                          class="mb-5"
+                          v-bind="attrs"
+                          v-on="on"
+                          @click="
+                            $store.state.dialogs.aggressivenessRanking.show = true
+                          "
+                        >
+                          <v-icon>mdi-skull-crossbones</v-icon>
+                          <span>+{{ simulation.aggressivenessToBeAdded }}</span>
+                        </v-btn>
+                      </template>
+                      <span
+                        >Your Aggressiveness will be
+                        {{
+                          $store.state.playerCountry.aggressiveness +
+                            simulation.aggressivenessToBeAdded
+                        }}</span
+                      >
+                    </v-tooltip>
+
                     <h1 class="display-3 red--text">VS</h1>
                   </v-col>
 
@@ -332,7 +362,7 @@
             </v-card>
           </v-tab-item>
 
-          <v-tab-item value="tab-peace-offer">
+          <!-- <v-tab-item value="tab-peace-offer">
             <v-card flat dark tile>
               <v-card-text class="text-center">
                 <v-img
@@ -358,7 +388,7 @@
                 </v-btn>
               </v-card-actions>
             </v-card>
-          </v-tab-item>
+          </v-tab-item> -->
 
           <v-tab-item value="tab-ally">
             <v-card flat dark tile>
@@ -373,6 +403,18 @@
               </v-card-text>
 
               <v-card-actions class="justify-end">
+                <v-btn
+                  color="orange"
+                  tile
+                  :disabled="!canBreakAlliance"
+                  @click="setAction('BREAK_ALLIANCE')"
+                >
+                  <v-icon class="mr-2">
+                    mdi-handshake
+                  </v-icon>
+                  Break Alliance
+                </v-btn>
+
                 <v-btn
                   color="blue"
                   tile
@@ -424,6 +466,18 @@
               </v-card-text>
 
               <v-card-actions class="justify-end">
+                <v-btn
+                  color="orange"
+                  tile
+                  :disabled="!canRemoveIndependenceGuaranteeing"
+                  @click="setAction('REMOVE_INDEPENDENCE_GUARANTEEING')"
+                >
+                  <v-icon class="mr-2">
+                    mdi-handshake
+                  </v-icon>
+                  Remove Guarantee
+                </v-btn>
+
                 <v-btn
                   color="teal"
                   tile
@@ -497,12 +551,12 @@ export default {
         icon: "mdi-target-variant",
         iconColor: "red",
       },
-      {
-        id: "tab-peace-offer",
-        title: "Peace Offer",
-        icon: "mdi-email",
-        iconColor: "white",
-      },
+      // {
+      //   id: "tab-peace-offer",
+      //   title: "Peace Offer",
+      //   icon: "mdi-email",
+      //   iconColor: "white",
+      // },
       {
         id: "tab-ally",
         title: "Ally",
@@ -571,6 +625,11 @@ export default {
         (enemy) => enemy.id === this.target.id
       );
     },
+    isGuaranteeingIndependence() {
+      return this.playerCountry.guaranteeingIndependence.some(
+        (ally) => ally.id === this.target.id
+      );
+    },
     canDeclareWar() {
       return !(
         this.isSelfTarget ||
@@ -584,8 +643,19 @@ export default {
     canSendAllyRequest() {
       return !this.hasFriendlyRelations;
     },
+    isAlliedWith() {
+      return this.playerCountry.allies.some(
+        (ally) => ally.id === this.target.id
+      );
+    },
+    canBreakAlliance() {
+      return this.isAlliedWith;
+    },
     canAddAsEnemy() {
       return !(this.hasFriendlyRelations || this.isEnemy);
+    },
+    canRemoveIndependenceGuaranteeing() {
+      return this.isGuaranteeingIndependence;
     },
     canGuaranteeIndependence() {
       return !(this.hasFriendlyRelations || this.isEnemy);
@@ -731,6 +801,22 @@ export default {
           });
           break;
 
+        case "BREAK_ALLIANCE":
+          this.clearDuplicatedRelationAction(actionType);
+          this.addAction({
+            icon: "mdi-handshake",
+            iconColor: "orange lighten-2",
+            description: `Break alliance with ${this.target.name}`,
+            flag: this.target.flag,
+            action: {
+              type: "BREAK_ALLIANCE",
+              data: {
+                targetId: this.target.id,
+              },
+            },
+          });
+          break;
+
         case "GUARANTEE_INDEPENDENCE":
           this.clearDuplicatedRelationAction(actionType);
           this.addAction({
@@ -740,6 +826,22 @@ export default {
             flag: this.target.flag,
             action: {
               type: "GUARANTEE_INDEPENDENCE",
+              data: {
+                targetId: this.target.id,
+              },
+            },
+          });
+          break;
+
+        case "REMOVE_INDEPENDENCE_GUARANTEEING":
+          this.clearDuplicatedRelationAction(actionType);
+          this.addAction({
+            icon: "mdi-handshake",
+            iconColor: "orange lighten-2",
+            description: `Remove ${this.target.name}'s independence guaranteeing`,
+            flag: this.target.flag,
+            action: {
+              type: "REMOVE_INDEPENDENCE_GUARANTEEING",
               data: {
                 targetId: this.target.id,
               },

@@ -165,6 +165,7 @@ export default {
         playerCountry.independenceGuaranteedBy;
 
       this.$store.state.playerCountry.messages = playerCountry.messages;
+      this.$store.state.playerCountry.focusType = playerCountry.focus.type;
     },
     async setupGame(game = null) {
       if (!game) {

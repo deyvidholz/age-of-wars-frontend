@@ -121,7 +121,7 @@ export default {
         .get(`/available-focuses`)
         .then((res) => {
           const { focuses, allowChangeFocusEveryStage } = res.data.data;
-          this.focuses = focuses;
+          this.focuses = focuses.filter(focus => focus.type !== this.$store.state.playerCountry.focusType);
           this.allowChangeFocusEveryStage = allowChangeFocusEveryStage;
         })
         .catch((err) => {

@@ -1,6 +1,6 @@
 <template>
-  <v-dialog v-model="$store.state.dialogs.province.show" width="520">
-    <v-card color="grey darken-3" dark scrollable>
+  <v-dialog v-model="$store.state.dialogs.province.show" width="520" scrollable>
+    <v-card color="grey darken-3" dark>
       <v-card-title>
         <v-icon color="yellow" class="mr-2">
           mdi-earth-box
@@ -167,6 +167,10 @@
             <ul class="text-left list mx-auto">
               <li v-for="(passive, index) in province.passives" :key="index">
                 {{ passive.description }}
+                |
+                <span v-if="passive.duration">
+                  Stgs Remaining: {{ passive.duration }}
+                </span>
               </li>
             </ul>
           </v-col>

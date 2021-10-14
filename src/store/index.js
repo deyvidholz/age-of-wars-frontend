@@ -19,6 +19,9 @@ export default new Vuex.Store({
     defaultProvinceFlag: "http://localhost:3001/imgs/provinces/default.jpg",
 
     demandMapMode: false,
+    demandingProvinces: [],
+    provincesAllowedToDemand: [],
+
     selfCountryOverview: false,
     actions: [],
 
@@ -47,6 +50,7 @@ export default new Vuex.Store({
       aircrafts: 0,
       warships: 0,
       aggressiveness: 0,
+      focusType: null,
       decisions: [],
       allies: [],
       enemies: [],
@@ -59,7 +63,6 @@ export default new Vuex.Store({
     provinceElement: null,
     provinceElementOriginalColor: "#ffffff",
     province: {
-      id: null,
       mapRef: null,
       img: null,
       name: null,
