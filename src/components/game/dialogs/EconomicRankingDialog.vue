@@ -5,12 +5,16 @@
     scrollable
   >
     <v-card color="grey darken-3" dark>
-      <v-card-title>
-        <v-icon color="green accent-3" class="mr-2">
-          mdi-cash
-        </v-icon>
+      <v-card-title class="justify-space-between">
+        <div>
+          <v-icon color="green accent-3" class="mr-2">
+            mdi-cash
+          </v-icon>
 
-        Economic Ranking
+          Economic Ranking
+        </div>
+
+        <small class="grey--text">({{ items.length }} countries)</small>
       </v-card-title>
 
       <v-divider></v-divider>

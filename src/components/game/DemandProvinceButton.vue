@@ -1,6 +1,6 @@
 <template>
   <v-btn
-    v-if="true || $store.state.demandMapMode"
+    v-if="$store.state.demandMapMode"
     class="demand-province"
     color="red darken-2"
     tile
@@ -12,7 +12,7 @@
       mdi-chevron-right
     </v-icon>
 
-    Demand Province
+    Demand Province ({{ $store.state.maxProvincesToDemand }})
   </v-btn>
 </template>
 
@@ -53,6 +53,8 @@ export default {
       this.$store.state.provinceElementOriginalColor = color;
       document.querySelector(`#${provinceToFill}`).style.fill = color;
 
+      this.$store.state.maxProvincesToDemand =
+        payload.maxProvincesAllowedToDemand;
       this.$store.state.playerCountry.decisions = payload.decisions;
       this.$store.state.provincesAllowedToDemand = payload.remainingProvinces;
       this.$store.state.playerCountry.aggressiveness =

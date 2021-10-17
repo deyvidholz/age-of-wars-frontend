@@ -1,12 +1,18 @@
 <template>
   <v-dialog v-model="$store.state.dialogs.province.show" width="520" scrollable>
     <v-card color="grey darken-3" dark>
-      <v-card-title>
-        <v-icon color="yellow" class="mr-2">
-          mdi-earth-box
-        </v-icon>
+      <v-card-title class="justify-space-between">
+        <div>
+          <v-icon color="yellow" class="mr-2">
+            mdi-earth-box
+          </v-icon>
 
-        Province Info
+          Province Info
+        </div>
+
+        <small class="grey--text">
+          ({{ province.ownerTotalProvinces }} provinces)
+        </small>
       </v-card-title>
 
       <v-divider></v-divider>

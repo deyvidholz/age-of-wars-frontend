@@ -40,7 +40,12 @@
                 outlined
                 small
                 tile
-                @click="changeToDemandMapMode(decision.data.provincesToFill)"
+                @click="
+                  changeToDemandMapMode(
+                    decision.data.provincesToFill,
+                    decision.data.maxProvincesAllowedToDemand
+                  )
+                "
               >
                 Go To Demands
               </v-btn>
@@ -121,9 +126,10 @@ export default {
         },
       });
     },
-    changeToDemandMapMode(provincesToFill) {
+    changeToDemandMapMode(provincesToFill, maxProvincesToDemand) {
       const elements = getAllProvinceElements();
       this.$store.state.provincesAllowedToDemand = [...provincesToFill];
+      this.$store.state.maxProvincesToDemand = maxProvincesToDemand;
 
       elements.forEach((element) => {
         if (provincesToFill.includes(element.id)) {

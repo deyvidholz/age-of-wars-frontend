@@ -21,7 +21,7 @@
 
               {{ item.field }}
               <br />
-              <small> {{ formatMoney(item.unityPrice) }}/un </small>
+              <small> {{ formatMoney(item.unityPrice, true) }}/un </small>
             </div>
 
             <div class="d-flex flex-wrap align-center justify-end">
@@ -33,6 +33,16 @@
                 filled
               />
               <div>
+                <div>
+                  <v-btn
+                    small
+                    color="orange darken-1"
+                    @click="add(item.field, $event, 50)"
+                  >
+                    <v-icon>mdi-arrow-top-right-thick</v-icon>
+                  </v-btn>
+                </div>
+
                 <div>
                   <v-btn
                     small
@@ -74,7 +84,7 @@
         <div>
           Total:
           <span class="green--text text--accent-3 font-weight-bold">
-            {{ formatMoney(totalPrice) }}
+            {{ formatMoney(totalPrice, true) }}
           </span>
         </div>
 
@@ -245,9 +255,7 @@ export default {
       }
     },
 
-    add(type, event) {
-      let qty = 1;
-
+    add(type, event, qty = 1) {
       if (event.shiftKey) {
         qty = 10;
       }

@@ -21,6 +21,7 @@ export default new Vuex.Store({
     demandMapMode: false,
     demandingProvinces: [],
     provincesAllowedToDemand: [],
+    maxProvincesToDemand: 0,
 
     selfCountryOverview: false,
     actions: [],

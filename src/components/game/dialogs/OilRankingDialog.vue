@@ -5,12 +5,15 @@
     scrollable
   >
     <v-card color="grey darken-3" dark>
-      <v-card-title>
-        <v-icon color="brown lighten-1" class="mr-2">
-          mdi-water
-        </v-icon>
+      <v-card-title class="justify-space-between">
+        <div>
+          <v-icon color="brown lighten-1" class="mr-2">
+            mdi-water
+          </v-icon>
 
-        Oil Ranking
+          Oil Ranking
+        </div>
+        <small class="grey--text">({{ items.length }} countries)</small>
       </v-card-title>
 
       <v-divider></v-divider>

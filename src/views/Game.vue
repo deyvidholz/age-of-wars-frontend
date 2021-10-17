@@ -302,6 +302,7 @@ export default {
     },
     "player:next-turn"(payload) {
       this.$store.state.isRequesting = false;
+      this.$store.state.demandMapMode = false;
       console.log("player:next-turn", payload);
       if (!payload.isNextTurn) {
         this.$store.state.alreadyPlayed = true;

@@ -5,12 +5,16 @@
     scrollable
   >
     <v-card color="grey darken-3" dark>
-      <v-card-title>
-        <v-icon color="yellow" class="mr-2">
-          mdi-heart-half-full
-        </v-icon>
+      <v-card-title class="justify-space-between">
+        <div>
+          <v-icon color="yellow" class="mr-2">
+            mdi-heart-half-full
+          </v-icon>
 
-        Opinion Ranking
+          Opinion Ranking
+        </div>
+
+        <small class="grey--text">({{ items.length }} countries)</small>
       </v-card-title>
 
       <v-divider></v-divider>
