@@ -9,6 +9,9 @@ export default new Vuex.Store({
     alreadyPicked: false,
     alreadyPlayed: false,
 
+    colorTargetId: null,
+    colorToBePicked: null,
+
     showLeftSidebar: false,
     showRightSidebar: true,
     rightSidebarMini: true,
@@ -57,8 +60,9 @@ export default new Vuex.Store({
       enemies: [],
       guaranteeingIndependence: [],
       independenceGuaranteedBy: [],
-      messages: [],
     },
+
+    messages: [],
 
     isRequestingProvince: false,
     provinceElement: null,

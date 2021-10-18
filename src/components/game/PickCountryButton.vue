@@ -52,31 +52,8 @@ export default {
       this.$socket.client.emit("player:pick-country", {
         ...this.getBaseData(),
         countryId: this.$store.state.province.country.id,
+        targetId: this.$store.state.colorTargetId,
       });
-
-      return;
-
-      const payload = {
-        countryId: this.$store.state.province.country.id,
-      };
-
-      this.http
-        .post("/players/pick-country", payload)
-        .then((res) => {
-          localStorage.setItem("countryId", res.data.data.country.id);
-          this.$store.state.alreadyPicked = true;
-          this.$store.state.notifications.push({
-            flag: res.data.data.country.flag,
-            countryName: res.data.data.country.name,
-            text: res.data.message,
-          });
-        })
-        .catch((err) => {
-          console.log(err);
-          this.$store.state.dialogs.info.title = err.response.data.message;
-          this.$store.state.dialogs.info.isError = true;
-          this.$store.state.dialogs.info.show = true;
-        });
     },
   },
 };

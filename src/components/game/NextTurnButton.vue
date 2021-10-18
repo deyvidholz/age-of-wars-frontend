@@ -25,6 +25,7 @@ export default {
       return this.$store.state.actions.map((action) => action.action);
     },
     nextTurn() {
+      this.$store.state.notifications = [];
       this.$store.state.isRequesting = true;
       this.$socket.client.emit("player:next-turn", {
         ...this.getBaseData(),
@@ -32,25 +33,6 @@ export default {
       });
 
       this.clearActions();
-
-      return;
-      const payload = {
-        actions: this.getActions(),
-      };
-
-      this.http
-        .post("/games/next-turn", payload)
-        .then((res) => {
-          // TODO check if it's necessary do something here
-          console.log("res", res);
-          this.clearActions();
-        })
-        .catch((err) => {
-          console.log(err);
-          this.$store.state.dialogs.info.title = err.response.data.message;
-          this.$store.state.dialogs.info.isError = true;
-          this.$store.state.dialogs.info.show = true;
-        });
     },
   },
   sockets: {

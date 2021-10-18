@@ -59,9 +59,7 @@
                 tile
                 v-for="(type, index) in decision.types"
                 :key="index"
-                @click="
-                  addAction(decision.id, decision.actionType, decision.data)
-                "
+                @click="addAction(decision.id, type, decision.data)"
               >
                 {{ type.replace(/_/g, " ") }}
               </v-btn>
@@ -82,7 +80,7 @@
 </template>
 
 <script>
-import { fillProvinces, getAllProvinceElements } from "@/helpers/map";
+import { getAllProvinceElements } from "@/helpers/map";
 
 export default {
   data: () => ({

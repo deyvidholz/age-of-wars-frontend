@@ -235,6 +235,37 @@
       <v-divider></v-divider>
     </template>
 
+    <template v-else>
+      <div class="mt-2">
+        <v-tooltip
+          bottom
+          v-for="player in [
+            $store.state.game.owner,
+            ...$store.state.game.players,
+          ]"
+          :key="player.id"
+        >
+          <template v-slot:activator="{ on, attrs }">
+            <v-img
+              :src="
+                `${$store.state.defaultCountryFlagPath}/${player.currentGameCountryFlag}`
+              "
+              :class="
+                `mx-auto flag-bordered-2 mb-1 ${
+                  player.alreadyPlayed ? 'border-green' : ''
+                }`
+              "
+              height="16"
+              width="24"
+              v-bind="attrs"
+              v-on="on"
+            ></v-img>
+          </template>
+          <span>{{ player.nickname }}</span>
+        </v-tooltip>
+      </div>
+    </template>
+
     <!-- <v-list dense>
       <v-list-item v-for="item in items" :key="item.title" link>
         <v-list-item-icon>

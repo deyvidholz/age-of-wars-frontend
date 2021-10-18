@@ -25,12 +25,13 @@
     <ProvinceInfoDialog />
     <DecisionsDialog />
 
+    <PickColorButton />
     <PickCountryButton />
     <NextTurnButton />
     <DemandProvinceButton />
 
     <MessageDialog
-      v-for="(msg, index) in $store.state.playerCountry.messages"
+      v-for="(msg, index) in $store.state.messages"
       :key="index"
       :message="msg"
     />
@@ -60,6 +61,7 @@ import WorldMap from "@/components/game/maps/World";
 import TargetInfo from "@/components/game/TargetInfo";
 
 import StartPickingPhaseDialog from "@/components/game/dialogs/StartPickingPhaseDialog";
+import PickColorButton from "@/components/game/PickColorButton";
 import PickCountryButton from "@/components/game/PickCountryButton";
 import NextTurnButton from "@/components/game/NextTurnButton";
 import DemandProvinceButton from "@/components/game/DemandProvinceButton";
@@ -102,6 +104,7 @@ export default {
     WorldMap,
     TargetInfo,
     StartPickingPhaseDialog,
+    PickColorButton,
     PickCountryButton,
     NextTurnButton,
     DemandProvinceButton,
@@ -127,13 +130,8 @@ export default {
       this.$store.state.game.name = game.name;
       this.$store.state.game.stage = game.stage;
       this.$store.state.game.stageCount = game.stageCount;
-      this.$store.state.game.owner.id = game.owner.id;
-      this.$store.state.game.owner.nickname = game.owner.nickname;
-
-      this.$store.state.game.players = game.players.map((player) => ({
-        id: player.id,
-        nickname: player.nickname,
-      }));
+      this.$store.state.game.owner = game.owner;
+      this.$store.state.game.players = game.players;
     },
     setPlayerCountryData(playerCountry) {
       this.$store.state.playerCountry.id = playerCountry.id;
@@ -154,7 +152,7 @@ export default {
       this.$store.state.playerCountry.aggressiveness =
         playerCountry.aggressiveness.current;
 
-      this.$store.state.playerCountry.decisions = playerCountry.decisions;
+      this.$store.state.playerCountry.decisions = [...playerCountry.decisions];
 
       this.$store.state.playerCountry.allies = playerCountry.allies;
       this.$store.state.playerCountry.enemies = playerCountry.enemies;
@@ -164,8 +162,14 @@ export default {
       this.$store.state.playerCountry.independenceGuaranteedBy =
         playerCountry.independenceGuaranteedBy;
 
-      this.$store.state.playerCountry.messages = playerCountry.messages;
       this.$store.state.playerCountry.focusType = playerCountry.focus.type;
+
+      playerCountry.messages.forEach((message, index) => {
+        this.$store.state.notifications.push({
+          id: Date.now() + index,
+          text: message.title,
+        });
+      });
     },
     async setupGame(game = null) {
       if (!game) {
@@ -280,7 +284,6 @@ export default {
     "player:start-picking-phase"(payload) {
       this.$store.state.isRequesting = false;
       console.log("player:start-picking-phase", payload);
-      // console.log("setupGame", this._vm.setupGame);
       this.setupGame(payload.game);
     },
     "player:pick-country"(payload) {
@@ -305,6 +308,8 @@ export default {
       this.$store.state.demandMapMode = false;
       console.log("player:next-turn", payload);
       if (!payload.isNextTurn) {
+        this.$store.state.game.owner = payload.game.owner;
+        this.$store.state.game.players = payload.game.players;
         this.$store.state.alreadyPlayed = true;
         return;
       }
@@ -315,6 +320,10 @@ export default {
     "player:join-game"(payload) {
       this.$store.state.isRequesting = false;
       this.$store.state.game.players = payload.game.players;
+    },
+    "player:player-list"(payload) {
+      this.$store.state.game.owner = payload.owner;
+      this.$store.state.game.players = payload.players;
     },
   },
 };

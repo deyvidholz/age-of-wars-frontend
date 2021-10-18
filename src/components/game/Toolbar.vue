@@ -225,14 +225,7 @@
 
     <v-tooltip bottom>
       <template v-slot:activator="{ on, attrs }">
-        <v-btn
-          outlined
-          color="green"
-          class="mr-5"
-          v-bind="attrs"
-          v-on="on"
-          x-small
-        >
+        <v-btn outlined color="green" v-bind="attrs" v-on="on" x-small>
           <span>{{ $store.state.game.stageCount }}º Stg</span>
         </v-btn>
       </template>
