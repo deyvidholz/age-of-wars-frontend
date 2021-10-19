@@ -48,6 +48,23 @@ export default {
   sockets: {
     "country:demand-province"(payload) {
       console.log("demand", payload);
+
+      this.$store.state.notifications.push({
+        icon: "mdi-earth-plus",
+        iconColor: "yellow",
+        flag: payload.country.flag,
+        countryName: payload.country.name,
+        text: payload.message,
+      });
+
+      if (payload.country.isAi) {
+        return;
+      }
+
+      if (payload.country.id !== this.$store.state.playerCountry.id) {
+        return;
+      }
+
       const { color, provinceToFill } = payload;
       this.$store.state.isRequesting = false;
       this.$store.state.provinceElementOriginalColor = color;
@@ -60,15 +77,6 @@ export default {
       this.$store.state.playerCountry.aggressiveness =
         payload.country.aggressiveness.current;
       this.$store.demandMapMode = false;
-
-      // TODO change icon to "earth-box-plus" icon
-      this.$store.state.notifications.push({
-        icon: "mdi-information-variant",
-        iconColor: "yellow",
-        flag: payload.country.flag,
-        countryName: payload.country.name,
-        text: payload.message,
-      });
     },
   },
 };

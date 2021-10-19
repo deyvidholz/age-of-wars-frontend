@@ -3,7 +3,7 @@ import Vue from "vue";
 import store from "../store/index";
 
 export const http = axios.create({
-  baseURL: `http://localhost:3001`,
+  baseURL: "http://localhost:3001",
   headers: {
     Authorization: `Bearer ${localStorage.getItem("token")}`,
     "Country-ID": `${localStorage.getItem("countryId")}`,
