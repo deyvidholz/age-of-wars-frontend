@@ -34,7 +34,7 @@ In order to install the dependencies, use `npm install`.
 
 After install the dependencies, you can run the app by running `npm run serve`
 
-# Game Images
+# 🖼️ Game Images
 
 <h2 align="center"> 
 	Left Sidebar (Player Actions)
