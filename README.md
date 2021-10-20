@@ -32,7 +32,7 @@ In order to install the dependencies, use `npm install`.
 
 # 🚀 Running the app (development mode)
 
-After install the dependencies, you can run the app by running `npm run serve serve`
+After install the dependencies, you can run the app by running `npm run serve`
 
 # Game Images
 
