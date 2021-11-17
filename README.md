@@ -3,7 +3,7 @@
 </h1>
 
 <h1 align="center">
-  <img alt="In game" src="https://i.ibb.co/gDXRGR6/in-game.png" />
+  <img alt="In game" src="https://raw.githubusercontent.com/deyvidholz/age-of-wars-frontend/main/screenshots/declaring-war.png?raw=true" />
 </h1>
 
 # 📝 TL;DR
@@ -41,7 +41,7 @@ After install the dependencies, you can run the app by running `npm run serve`
 </h2>
 
 <h1 align="center">
-  <img alt="Player Actions" src="https://i.ibb.co/vY75Xx3/left-sidebar.png" />
+  <img alt="Player Actions" src="https://github.com/deyvidholz/age-of-wars-frontend/blob/main/screenshots/left-sidebar.png?raw=true" />
 </h1>
 
 <h2 align="center"> 
@@ -49,7 +49,7 @@ After install the dependencies, you can run the app by running `npm run serve`
 </h2>
 
 <h1 align="center">
-  <img alt="Target Information" src="https://i.ibb.co/tDvHdhd/sending-ally-reques" />
+  <img alt="Target Information" src="https://github.com/deyvidholz/age-of-wars-frontend/blob/main/screenshots/right-sidebar.png?raw=true" />
 </h1>
 
 <h2 align="center"> 
@@ -57,7 +57,7 @@ After install the dependencies, you can run the app by running `npm run serve`
 </h2>
 
 <h1 align="center">
-  <img alt="Province Information Card" src="https://i.ibb.co/x1mFY98/province-info.png" />
+  <img alt="Province Information Card" src="https://github.com/deyvidholz/age-of-wars-frontend/blob/main/screenshots/province-info.png?raw=true" />
 </h1>
 
 <h2 align="center"> 
@@ -65,11 +65,11 @@ After install the dependencies, you can run the app by running `npm run serve`
 </h2>
 
 <h1 align="center">
-  <img alt="Economy Ranking" src="https://i.ibb.co/rZNntXC/economy-ranking.png" />
+  <img alt="Economy Ranking" src="https://github.com/deyvidholz/age-of-wars-frontend/blob/main/screenshots/economy-ranking.png?raw=true" />
 </h1>
 
 <h1 align="center">
-  <img alt="Military Ranking" src="https://i.ibb.co/dpLdFQN/military-ranking.png" />
+  <img alt="Military Ranking" src="https://github.com/deyvidholz/age-of-wars-frontend/blob/main/screenshots/military-ranking.png?raw=true" />
 </h1>
 
 <h2 align="center"> 
@@ -77,7 +77,7 @@ After install the dependencies, you can run the app by running `npm run serve`
 </h2>
 
 <h1 align="center">
-  <img alt="Focus Card" src="https://i.ibb.co/hBs7yV7/focus.png" />
+  <img alt="Focus Card" src="https://github.com/deyvidholz/age-of-wars-frontend/blob/main/screenshots/focus.png?raw=true" />
 </h1>
 
 <h2 align="center"> 
@@ -85,7 +85,7 @@ After install the dependencies, you can run the app by running `npm run serve`
 </h2>
 
 <h1 align="center">
-  <img alt="Relations Card - Declare War" src="https://i.ibb.co/q77g1SC/declaring-war.png" />
+  <img alt="Relations Card - Declare War" src="https://github.com/deyvidholz/age-of-wars-frontend/blob/main/screenshots/declaring-war.png?raw=true" />
 </h1>
 
 <h2 align="center"> 
@@ -93,7 +93,7 @@ After install the dependencies, you can run the app by running `npm run serve`
 </h2>
 
 <h1 align="center">
-  <img alt="Send Ally Request" src="https://i.ibb.co/tDvHdhd/sending-ally-request.png" />
+  <img alt="Send Ally Request" src="https://github.com/deyvidholz/age-of-wars-frontend/blob/main/screenshots/sending-ally-request.png?raw=true" />
 </h1>
 
 <h2 align="center"> 
@@ -101,7 +101,7 @@ After install the dependencies, you can run the app by running `npm run serve`
 </h2>
 
 <h1 align="center">
-  <img alt="Provinces Conquered" src="https://i.ibb.co/crFw0Yd/provinces-conquered.jpg" />
+  <img alt="Provinces Conquered" src="https://github.com/deyvidholz/age-of-wars-frontend/blob/main/screenshots/provinces-conquered.jpeg?raw=true" />
 </h1>
 
 # Glossary
