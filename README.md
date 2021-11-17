@@ -3,7 +3,7 @@
 </h1>
 
 <h1 align="center">
-  <img alt="In game" src="https://imgur.com/C377KhJ.png" />
+  <img alt="In game" src="https://i.ibb.co/gDXRGR6/in-game.png" />
 </h1>
 
 # 📝 TL;DR
@@ -41,7 +41,7 @@ After install the dependencies, you can run the app by running `npm run serve`
 </h2>
 
 <h1 align="center">
-  <img alt="Player Actions" src="https://imgur.com/klOXRrt.png" />
+  <img alt="Player Actions" src="https://i.ibb.co/vY75Xx3/left-sidebar.png" />
 </h1>
 
 <h2 align="center"> 
@@ -49,7 +49,7 @@ After install the dependencies, you can run the app by running `npm run serve`
 </h2>
 
 <h1 align="center">
-  <img alt="Target Information" src="https://imgur.com/jcRkXKi.png" />
+  <img alt="Target Information" src="https://i.ibb.co/tDvHdhd/sending-ally-reques" />
 </h1>
 
 <h2 align="center"> 
@@ -57,7 +57,7 @@ After install the dependencies, you can run the app by running `npm run serve`
 </h2>
 
 <h1 align="center">
-  <img alt="Province Information Card" src="https://imgur.com/swDNpRo.png" />
+  <img alt="Province Information Card" src="https://i.ibb.co/x1mFY98/province-info.png" />
 </h1>
 
 <h2 align="center"> 
@@ -65,11 +65,11 @@ After install the dependencies, you can run the app by running `npm run serve`
 </h2>
 
 <h1 align="center">
-  <img alt="Economy Ranking" src="https://imgur.com/BbnBYAE.png" />
+  <img alt="Economy Ranking" src="https://i.ibb.co/rZNntXC/economy-ranking.png" />
 </h1>
 
 <h1 align="center">
-  <img alt="Military Ranking" src="https://imgur.com/nCtG70X.png" />
+  <img alt="Military Ranking" src="https://i.ibb.co/dpLdFQN/military-ranking.png" />
 </h1>
 
 <h2 align="center"> 
@@ -77,7 +77,7 @@ After install the dependencies, you can run the app by running `npm run serve`
 </h2>
 
 <h1 align="center">
-  <img alt="Focus Card" src="https://imgur.com/kxhgxCZ.png" />
+  <img alt="Focus Card" src="https://i.ibb.co/hBs7yV7/focus.png" />
 </h1>
 
 <h2 align="center"> 
@@ -85,7 +85,7 @@ After install the dependencies, you can run the app by running `npm run serve`
 </h2>
 
 <h1 align="center">
-  <img alt="Relations Card - Declare War" src="https://imgur.com/ZhJKCMD.png" />
+  <img alt="Relations Card - Declare War" src="https://i.ibb.co/q77g1SC/declaring-war.png" />
 </h1>
 
 <h2 align="center"> 
@@ -93,7 +93,7 @@ After install the dependencies, you can run the app by running `npm run serve`
 </h2>
 
 <h1 align="center">
-  <img alt="Send Ally Request" src="https://imgur.com/YxQYj9Y.png" />
+  <img alt="Send Ally Request" src="https://i.ibb.co/tDvHdhd/sending-ally-request.png" />
 </h1>
 
 <h2 align="center"> 
@@ -101,7 +101,7 @@ After install the dependencies, you can run the app by running `npm run serve`
 </h2>
 
 <h1 align="center">
-  <img alt="Provinces Conquered" src="https://imgur.com/WV0FWEb.png" />
+  <img alt="Provinces Conquered" src="https://i.ibb.co/crFw0Yd/provinces-conquered.jpg" />
 </h1>
 
 # Glossary
