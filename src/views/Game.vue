@@ -39,6 +39,7 @@
 </template>
 
 <script>
+import { mapMutations } from "vuex";
 import { getPlayerCountry } from "@/helpers/country";
 import { fillProvinces, getAllProvinceElements } from "@/helpers/map";
 
@@ -124,7 +125,20 @@ export default {
     DecisionsDialog,
   },
 
+  computed: {
+    hasInteracted() {
+      return this.$store.state.hasInteracted;
+    },
+  },
+
+  watch: {
+    hasInteracted() {
+      this.$store.state.audio.AUDIO_WAR_SUSPENSE_2.play();
+    },
+  },
+
   methods: {
+    ...mapMutations(["stopAllAudios"]),
     setGameData(game) {
       this.$store.state.game.id = game.id;
       this.$store.state.game.name = game.name;
@@ -196,7 +210,12 @@ export default {
       const playerId = localStorage.getItem("playerId");
       const playerCountry = getPlayerCountry(playerId, game.countries);
 
-      fillProvinces(game);
+      const handleClick = () => {
+        console.log("handleCLick");
+        this.$store.state.audio.CLICK.play();
+      };
+
+      fillProvinces(game, handleClick);
       this.setGameData(game);
 
       this.$store.state.dialogs.startPickingPhase.show = [
@@ -218,6 +237,10 @@ export default {
   },
 
   mounted() {
+    if (this.hasInteracted) {
+      this.$store.state.audio.AUDIO_WAR_SUSPENSE_2.play();
+    }
+
     this.$store.state.isRequesting = true;
     this.$socket.client.emit("join-room", {
       ...this.getBaseData(),
@@ -321,6 +344,7 @@ export default {
         return;
       }
 
+      this.$store.state.audio.PLAYER_TURN.play();
       this.setupGame(payload.game);
       this.$store.state.alreadyPlayed = false;
     },

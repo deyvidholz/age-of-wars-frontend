@@ -7,16 +7,14 @@
   >
     <v-card color="grey darken-3" dark>
       <v-card-title>
-        <v-icon color="orange" class="mr-2">
-          mdi-handshake
-        </v-icon>
+        <v-icon color="orange" class="mr-2"> mdi-handshake </v-icon>
 
         Relations
       </v-card-title>
 
       <v-divider></v-divider>
 
-      <v-card-text class="py-4" style="height: 390px;">
+      <v-card-text class="py-4" style="height: 390px">
         <Tabs :data="tabContent" color="grey darken-4">
           <v-tab-item value="tab-war">
             <v-card flat dark tile>
@@ -67,9 +65,7 @@
                           </div>
 
                           <div>
-                            <v-icon color="teal">
-                              mdi-tank
-                            </v-icon>
+                            <v-icon color="teal"> mdi-tank </v-icon>
 
                             {{
                               simulation.totals.attackers.armies.totals.tanks
@@ -77,9 +73,7 @@
                           </div>
 
                           <div>
-                            <v-icon color="red">
-                              mdi-airplane
-                            </v-icon>
+                            <v-icon color="red"> mdi-airplane </v-icon>
 
                             {{
                               simulation.totals.attackers.armies.totals
@@ -88,9 +82,7 @@
                           </div>
 
                           <div>
-                            <v-icon color="blue">
-                              mdi-ferry
-                            </v-icon>
+                            <v-icon color="blue"> mdi-ferry </v-icon>
 
                             {{
                               simulation.totals.attackers.armies.totals.warships
@@ -137,25 +129,19 @@
                               </div>
 
                               <div class="mr-5">
-                                <v-icon color="teal">
-                                  mdi-tank
-                                </v-icon>
+                                <v-icon color="teal"> mdi-tank </v-icon>
 
                                 {{ ally.army.tanks }}
                               </div>
 
                               <div class="mr-5">
-                                <v-icon color="red">
-                                  mdi-airplane
-                                </v-icon>
+                                <v-icon color="red"> mdi-airplane </v-icon>
 
                                 {{ ally.army.aircrafts }}
                               </div>
 
                               <div class="mr-5">
-                                <v-icon color="blue">
-                                  mdi-ferry
-                                </v-icon>
+                                <v-icon color="blue"> mdi-ferry </v-icon>
 
                                 {{ ally.army.warships }}
                               </div>
@@ -201,7 +187,7 @@
                         >Your Aggressiveness will be
                         {{
                           $store.state.playerCountry.aggressiveness +
-                            simulation.aggressivenessToBeAdded
+                          simulation.aggressivenessToBeAdded
                         }}</span
                       >
                     </v-tooltip>
@@ -213,9 +199,7 @@
                     <div class="d-flex justify-center mb-1">
                       <div>
                         <v-img
-                          :src="
-                            `${$store.state.defaultCountryFlagPath}/${target.flag}`
-                          "
+                          :src="`${$store.state.defaultCountryFlagPath}/${target.flag}`"
                           class="mr-2 flag-bordered"
                           height="22"
                           width="36"
@@ -255,17 +239,13 @@
                           </div>
 
                           <div>
-                            <v-icon color="teal">
-                              mdi-tank
-                            </v-icon>
+                            <v-icon color="teal"> mdi-tank </v-icon>
 
                             {{ simulation.totals.victims.armies.totals.tanks }}
                           </div>
 
                           <div>
-                            <v-icon color="red">
-                              mdi-airplane
-                            </v-icon>
+                            <v-icon color="red"> mdi-airplane </v-icon>
 
                             {{
                               simulation.totals.victims.armies.totals.aircrafts
@@ -273,9 +253,7 @@
                           </div>
 
                           <div>
-                            <v-icon color="blue">
-                              mdi-ferry
-                            </v-icon>
+                            <v-icon color="blue"> mdi-ferry </v-icon>
 
                             {{
                               simulation.totals.victims.armies.totals.warships
@@ -315,25 +293,19 @@
                               </div>
 
                               <div class="mr-5">
-                                <v-icon color="teal">
-                                  mdi-tank
-                                </v-icon>
+                                <v-icon color="teal"> mdi-tank </v-icon>
 
                                 {{ ally.army.tanks }}
                               </div>
 
                               <div class="mr-5">
-                                <v-icon color="red">
-                                  mdi-airplane
-                                </v-icon>
+                                <v-icon color="red"> mdi-airplane </v-icon>
 
                                 {{ ally.army.aircrafts }}
                               </div>
 
                               <div class="mr-5">
-                                <v-icon color="blue">
-                                  mdi-ferry
-                                </v-icon>
+                                <v-icon color="blue"> mdi-ferry </v-icon>
 
                                 {{ ally.army.warships }}
                               </div>
@@ -409,9 +381,7 @@
                   :disabled="!canBreakAlliance"
                   @click="setAction('BREAK_ALLIANCE')"
                 >
-                  <v-icon class="mr-2">
-                    mdi-handshake
-                  </v-icon>
+                  <v-icon class="mr-2"> mdi-handshake </v-icon>
                   Break Alliance
                 </v-btn>
 
@@ -472,9 +442,7 @@
                   :disabled="!canRemoveIndependenceGuaranteeing"
                   @click="setAction('REMOVE_INDEPENDENCE_GUARANTEEING')"
                 >
-                  <v-icon class="mr-2">
-                    mdi-handshake
-                  </v-icon>
+                  <v-icon class="mr-2"> mdi-handshake </v-icon>
                   Remove Guarantee
                 </v-btn>
 
@@ -526,15 +494,14 @@
       <v-divider></v-divider>
 
       <v-card-actions class="justify-end">
-        <v-btn color="red" text @click="close()">
-          Close
-        </v-btn>
+        <v-btn color="red" text @click="close()"> Close </v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
 </template>
 
 <script>
+import { mapMutations } from "vuex";
 import Tabs from "@/components/game/Tabs";
 
 export default {
@@ -665,14 +632,19 @@ export default {
   watch: {
     isShowing(newValue) {
       if (!newValue) {
+        this.stopAllAudiosKeepingTime();
+        this.$store.state.audio.AUDIO_WAR_SUSPENSE_2.play();
         return;
       }
 
+      this.stopAllAudiosKeepingTime();
+      this.$store.state.audio.AUDIO_WAR_SUSPENSE_1.play();
       this.getWarSimulation();
     },
   },
 
   methods: {
+    ...mapMutations(["stopAllAudios", "stopAllAudiosKeepingTime"]),
     close() {
       this.$store.state.dialogs.relations.show = false;
     },

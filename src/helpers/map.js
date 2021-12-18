@@ -1,4 +1,4 @@
-export function fillProvinces(game) {
+export function fillProvinces(game, handleClick) {
   for (const country of game.countries) {
     const color = country.color;
 
@@ -13,6 +13,13 @@ export function fillProvinces(game) {
         continue;
       }
 
+      const isLoaded = !!element.getAttribute("aow-province-loaded");
+
+      if (!isLoaded && handleClick) {
+        element.addEventListener("click", handleClick);
+      }
+
+      element.setAttribute("aow-province-loaded", true);
       element.style.fill = color;
     }
   }

@@ -5,6 +5,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    hasInteracted: false,
     isRequesting: false,
     alreadyPicked: false,
     alreadyPlayed: false,
@@ -171,8 +172,38 @@ export default new Vuex.Store({
         },
       },
     },
+
+    audio: {
+      AUDIO_WAR_SUSPENSE_1: new Audio(
+        require("@/assets/sounds/war-suspense-1.mp3")
+      ),
+      AUDIO_WAR_SUSPENSE_2: new Audio(
+        require("@/assets/sounds/war-suspense-2.mp3")
+      ),
+      CLICK: new Audio(require("@/assets/sounds/click.mp3")),
+      PLAYER_TURN: new Audio(require("@/assets/sounds/player-turn.mp3")),
+    },
+
+    audioConfig: {
+      AUDIO_WAR_SUSPENSE_1: { loop: true, volume: 0.3 },
+      AUDIO_WAR_SUSPENSE_2: { loop: true, volume: 0.3 },
+      CLICK: { volume: 0.7 },
+      PLAYER_TURN: { volume: 0.7 },
+    },
   },
-  mutations: {},
+  mutations: {
+    stopAllAudios({ audio }) {
+      for (const audioElement of Object.values(audio)) {
+        audioElement.pause();
+        audioElement.currentTime = 0;
+      }
+    },
+    stopAllAudiosKeepingTime({ audio }) {
+      for (const audioElement of Object.values(audio)) {
+        audioElement.pause();
+      }
+    },
+  },
   actions: {},
   modules: {},
   getters: {},

@@ -13,7 +13,7 @@
       :title="notification.text"
       :handler="
         notification.handler ||
-          (() => $store.state.notifications.splice(index, 1))
+        (() => $store.state.notifications.splice(index, 1))
       "
     />
     <Loader />
@@ -40,6 +40,28 @@ export default {
   data: () => ({
     //
   }),
+
+  mounted() {
+    document.addEventListener("click", () => {
+      if (!this.$store.state.hasInteracted) {
+        this.$store.state.hasInteracted = true;
+      }
+    });
+
+    console.log("Initializing audios...");
+    const { audio, audioConfig } = this.$store.state;
+
+    for (const audioName of Object.keys(audio)) {
+      const config = audioConfig[audioName] || { loop: false, volume: 0.3 };
+      const element = audio[audioName];
+      element.volume = 0.3;
+
+      for (const index of Object.keys(config)) {
+        const value = config[index];
+        element[index] = value;
+      }
+    }
+  },
 
   sockets: {
     error(payload) {
