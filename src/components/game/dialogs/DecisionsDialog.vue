@@ -6,9 +6,7 @@
   >
     <v-card color="grey darken-3" dark height="390px">
       <v-card-title>
-        <v-icon color="orange" class="mr-2">
-          mdi-book-edit
-        </v-icon>
+        <v-icon color="orange" class="mr-2"> mdi-book-edit </v-icon>
         Available Decisions
       </v-card-title>
 
@@ -16,6 +14,13 @@
         <v-divider></v-divider>
 
         <v-card-text class="py-4">
+          <h1
+            class="text-center display-1"
+            v-if="playerCountry.decisions.length === 0"
+          >
+            No decisions available
+          </h1>
+
           <v-card
             width="100%"
             v-for="decision in playerCountry.decisions"
@@ -71,9 +76,7 @@
       </template>
 
       <v-card-actions class="justify-end">
-        <v-btn color="red" text @click="close()">
-          Close
-        </v-btn>
+        <v-btn color="red" text @click="close()"> Close </v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
