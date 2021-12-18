@@ -174,6 +174,7 @@ export default {
     async setupGame(game = null) {
       if (!game) {
         try {
+          console.log("here");
           const res = await this.http.get(
             `/games/find/${localStorage.getItem("gameId")}`
           );
@@ -181,6 +182,11 @@ export default {
           game = res.data.data.game;
         } catch (err) {
           console.log(err.response);
+
+          if (err.response.status === 401) {
+            return this.$router.push({ name: "SignIn" });
+          }
+
           this.$store.state.dialogs.info.title = err.response.data.message;
           this.$store.state.dialogs.info.isError = true;
           this.$store.state.dialogs.info.show = true;
@@ -238,7 +244,8 @@ export default {
           this.$store.state.provinceElement &&
           this.$store.state.provinceElementOriginalColor
         ) {
-          this.$store.state.provinceElement.style.fill = this.$store.state.provinceElementOriginalColor;
+          this.$store.state.provinceElement.style.fill =
+            this.$store.state.provinceElementOriginalColor;
         }
 
         this.$store.state.provinceElementOriginalColor = element.style.fill;
