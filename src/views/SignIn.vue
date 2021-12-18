@@ -9,6 +9,7 @@
         <v-card-text>
           <v-text-field
             v-model="fieldValues.username"
+            @keyup="submit($event)"
             label="Username"
             type="text"
             dark
@@ -24,6 +25,7 @@
 
           <v-text-field
             v-model="fieldValues.password"
+            @keyup="submit($event)"
             label="Password"
             type="password"
             dark
@@ -90,7 +92,17 @@ export default {
       this.validFields[fieldName] = false;
       return text;
     },
-    submit() {
+    submit(event = null) {
+      if (event) {
+        if (event.code !== "Enter") {
+          return;
+        }
+
+        if (!this.canSubmit) {
+          return;
+        }
+      }
+
       this.http
         .post("/players/auth", {
           ...this.fieldValues,
