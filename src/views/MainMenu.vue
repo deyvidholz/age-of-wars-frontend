@@ -32,9 +32,7 @@
             </v-btn>
 
             <v-btn tile color="blue-grey darken-1 mb-2" @click="settings()">
-              <v-icon class="mr-2" color="blue-grey darken-4">
-                mdi-cog
-              </v-icon>
+              <v-icon class="mr-2" color="blue-grey darken-4"> mdi-cog </v-icon>
               Settings
             </v-btn>
           </div>
@@ -71,6 +69,18 @@ export default {
 
   data: () => ({}),
 
+  computed: {
+    hasInteracted() {
+      return this.$store.state.hasInteracted;
+    },
+  },
+
+  watch: {
+    hasInteracted() {
+      this.$store.state.audio.MAIN_THEME_1.play();
+    },
+  },
+
   methods: {
     openGithub() {
       window.open("https://github.com/deyvidholz");
@@ -87,6 +97,12 @@ export default {
     settings() {
       this.$store.state.mainMenu.dialogs.settings.show = true;
     },
+  },
+
+  mounted() {
+    if (this.hasInteracted) {
+      this.$store.state.audio.MAIN_THEME_1.play();
+    }
   },
 };
 </script>

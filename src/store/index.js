@@ -174,6 +174,7 @@ export default new Vuex.Store({
     },
 
     audio: {
+      MAIN_THEME_1: new Audio(require("@/assets/sounds/main-theme-1.mp3")),
       AUDIO_WAR_SUSPENSE_1: new Audio(
         require("@/assets/sounds/war-suspense-1.mp3")
       ),
@@ -185,10 +186,19 @@ export default new Vuex.Store({
     },
 
     audioConfig: {
-      AUDIO_WAR_SUSPENSE_1: { loop: true, volume: 0.3 },
-      AUDIO_WAR_SUSPENSE_2: { loop: true, volume: 0.3 },
-      CLICK: { volume: 0.7 },
-      PLAYER_TURN: { volume: 0.7 },
+      MAIN_THEME_1: { loop: true, volume: 0.4, "aow-sfx-type": "music" },
+      AUDIO_WAR_SUSPENSE_1: {
+        loop: true,
+        volume: 0.3,
+        "aow-sfx-type": "music",
+      },
+      AUDIO_WAR_SUSPENSE_2: {
+        loop: true,
+        volume: 0.3,
+        "aow-sfx-type": "music",
+      },
+      CLICK: { volume: 0.7, "aow-sfx-type": "sfx" },
+      PLAYER_TURN: { volume: 0.7, "aow-sfx-type": "sfx" },
     },
   },
   mutations: {

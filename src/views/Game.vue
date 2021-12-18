@@ -211,7 +211,6 @@ export default {
       const playerCountry = getPlayerCountry(playerId, game.countries);
 
       const handleClick = () => {
-        console.log("handleCLick");
         this.$store.state.audio.CLICK.play();
       };
 
@@ -238,6 +237,7 @@ export default {
 
   mounted() {
     if (this.hasInteracted) {
+      this.stopAllAudios();
       this.$store.state.audio.AUDIO_WAR_SUSPENSE_2.play();
     }
 

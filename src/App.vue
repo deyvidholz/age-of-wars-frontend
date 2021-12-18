@@ -58,6 +58,10 @@ export default {
 
       for (const index of Object.keys(config)) {
         const value = config[index];
+
+        if (index.match(/^aow-/)) {
+          element.setAttribute(index, value);
+        }
         element[index] = value;
       }
     }
