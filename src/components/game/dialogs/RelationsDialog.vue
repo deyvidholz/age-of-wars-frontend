@@ -488,6 +488,66 @@
               </v-card-actions>
             </v-card>
           </v-tab-item>
+
+          <v-tab-item value="tab-send-resources">
+            <v-card flat dark tile>
+              <v-card-text class="text-center">
+                <v-img
+                  :src="`${$store.state.defaultCountryFlagPath}/${target.flag}`"
+                  class="flag-bordered mx-auto mb-2"
+                  width="180"
+                />
+
+                <h2 class="mb-2">{{ target.name }}</h2>
+
+                <v-row>
+                  <v-col sm="12" md="4">
+                    <v-select
+                      v-model="resourceType"
+                      :items="availableResourceTypes"
+                      label="What you want to sell/send?"
+                      @change="checkResourceInputs"
+                    />
+                  </v-col>
+
+                  <v-col sm="12" md="4" v-if="resourceType === 'PROVINCE'">
+                    <v-select
+                      v-model="resourceProvince"
+                      label="Province to sell"
+                      item-text="name"
+                      item-value="mapRef"
+                      :items="availableProvinces"
+                      :loading="disableResourceProvinceInput"
+                      :disabled="disableResourceProvinceInput"
+                    />
+                  </v-col>
+
+                  <v-col sm="12" md="4" v-else>
+                    <v-text-field v-model="resourceAmount" label="Amount" />
+                  </v-col>
+
+                  <v-col sm="12" md="4">
+                    <v-text-field
+                      v-model="resourcePrice"
+                      label="Price"
+                      :disabled="disableResourcePriceInput"
+                    />
+                  </v-col>
+                </v-row>
+              </v-card-text>
+
+              <v-card-actions class="justify-end">
+                <v-btn
+                  color="green darken-3"
+                  tile
+                  @click="setAction('SEND_RESOURCE')"
+                >
+                  <v-icon dark class="mr-2"> mdi-gift </v-icon>
+                  Sell Resource
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-tab-item>
         </Tabs>
       </v-card-text>
 
@@ -506,11 +566,24 @@ import Tabs from "@/components/game/Tabs";
 
 export default {
   data: () => ({
+    // Send Resource data
+    availableResourceTypes: ["MONEY", "OIL", "PROVINCE"],
+    availableProvinces: [],
+    resourceType: "MONEY",
+    resourceAmount: 0,
+    resourceProvince: null,
+    resourcePrice: 0,
+    disableResourcePriceInput: true,
+    disableResourceProvinceInput: true,
+
+    // Declare War data
     simulation: null,
     callToWar: [],
     armies: {
       divisions: 0,
     },
+
+    // Tabs
     tabContent: [
       {
         id: "tab-war",
@@ -709,6 +782,7 @@ export default {
             "REQUEST_ALLY",
             "GUARANTEE_INDEPENDENCE",
             "REQUEST_PEACE",
+            "SEND_RESOURCE",
           ].includes(action.action.type) &&
           action.action.data.targetId === this.target.id
       );
@@ -836,6 +910,41 @@ export default {
             },
           });
           break;
+
+        case "SEND_RESOURCE":
+          // TODO intercept all resources when call next turn and create only one
+          let description =
+            this.resourceType === "PROVINCE"
+              ? `Sell province "${this.resourceProvince}" to ${this.target.name} for $${this.resourcePrice}`
+              : `Send ${this.resourceAmount} of ${this.resourceType} to ${this.target.name} for $${this.resourcePrice}`;
+
+          this.clearDuplicatedRelationAction(actionType);
+          this.addAction({
+            icon: "mdi-gift",
+            iconColor: "green accent-3",
+            description,
+            flag: this.target.flag,
+            action: {
+              type: "SEND_RESOURCES",
+              data: {
+                targetId: this.target.id,
+                resources: [
+                  {
+                    type: this.resourceType,
+                    amount: this.resourceAmount,
+                    provinceMapRef: this.resourceProvince,
+                    price: this.resourcePrice,
+                  },
+                ],
+              },
+            },
+          });
+
+          this.resourceType = "MONEY";
+          this.resourceAmount = 0;
+          this.resourceProvince = null;
+          this.resourcePrice = 0;
+          break;
       }
 
       this.$store.state.dialogs.info.title = `Action set`;
@@ -844,6 +953,41 @@ export default {
 
     addAction(action) {
       this.$store.state.actions.push(action);
+    },
+
+    checkResourceInputs(resourceType) {
+      if (resourceType === "MONEY") {
+        this.resourcePrice = 0;
+        this.disableResourcePriceInput = true;
+        return;
+      }
+
+      if (resourceType === "PROVINCE") {
+        this.disableResourceProvinceInput = true;
+        this.http
+          .get(`/countries/${this.$store.state.playerCountry.name}`)
+          .then(({ data: { data } }) => {
+            const {
+              country: { provinces },
+            } = data;
+
+            this.availableProvinces = provinces;
+            this.resourceProvince = this.availableProvinces[0].mapRef;
+            this.disableResourceProvinceInput = false;
+          })
+          .catch((error) => {
+            console.log(error.response);
+            this.$store.state.isRequestingProvince = false;
+            this.$store.state.dialogs.info.title = "An error occurred";
+            this.$store.state.dialogs.info.description =
+              error.response.data.message;
+
+            this.$store.state.dialogs.info.show = true;
+            element.style.fill = "#ffffff";
+          });
+      }
+
+      this.disableResourcePriceInput = false;
     },
   },
 };

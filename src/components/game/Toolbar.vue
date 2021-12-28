@@ -61,7 +61,8 @@
       <span>Balance</span>
     </v-tooltip>
 
-    <v-tooltip bottom>
+    <!-- TODO uncomment when factories feature is implemented -->
+    <!-- <v-tooltip bottom>
       <template v-slot:activator="{ on, attrs }">
         <v-btn
           small
@@ -103,7 +104,7 @@
         </v-btn>
       </template>
       <span>Oil</span>
-    </v-tooltip>
+    </v-tooltip> -->
 
     <v-tooltip bottom>
       <template v-slot:activator="{ on, attrs }">

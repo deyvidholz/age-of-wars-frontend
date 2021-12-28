@@ -25,6 +25,7 @@
             width="100%"
             v-for="decision in playerCountry.decisions"
             :key="decision.id"
+            class="mb-3"
           >
             <v-card-title class="justify-center">
               <v-icon

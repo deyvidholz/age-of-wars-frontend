@@ -128,5 +128,3 @@ This project still under development, bugs can be faced while playing, however, 
 - [ ] Improve code quality, reduce duplicated code, add components
 - [ ] Add Missions
 - [ ] Add Game Event Log
-- [ ] Add Cheats (Console)
-- [ ] Add Send Resources action

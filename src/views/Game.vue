@@ -9,6 +9,8 @@
     <WorldMap />
     <TargetInfo />
 
+    <Console />
+
     <StartPickingPhaseDialog />
     <OpinionRakingDialog />
     <EconomicRankingDialog />
@@ -60,6 +62,7 @@ import RightSidebar from "@/components/game/RightSidebar";
 import Tabs from "@/components/game/Tabs";
 import WorldMap from "@/components/game/maps/World";
 import TargetInfo from "@/components/game/TargetInfo";
+import Console from "@/components/game/dialogs/ConsoleDialog";
 
 import StartPickingPhaseDialog from "@/components/game/dialogs/StartPickingPhaseDialog";
 import PickColorButton from "@/components/game/PickColorButton";
@@ -104,6 +107,7 @@ export default {
     Tabs,
     WorldMap,
     TargetInfo,
+    Console,
     StartPickingPhaseDialog,
     PickColorButton,
     PickCountryButton,
@@ -188,7 +192,6 @@ export default {
     async setupGame(game = null) {
       if (!game) {
         try {
-          console.log("here");
           const res = await this.http.get(
             `/games/find/${localStorage.getItem("gameId")}`
           );
@@ -248,6 +251,15 @@ export default {
     });
 
     document.querySelector("body").addEventListener("keyup", (event) => {
+      if (event.key === "/") {
+        const isGameOwner =
+          localStorage.getItem("playerId") === this.$store.state.game.owner.id;
+
+        if (isGameOwner) {
+          this.$store.state.dialogs.console.show = true;
+        }
+      }
+
       if (event.code !== "Space") {
         return;
       }
@@ -303,6 +315,7 @@ export default {
       });
     });
   },
+
   sockets: {
     "@player-disconnected"(payload) {
       this.$store.state.isRequesting = false;

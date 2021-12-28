@@ -104,6 +104,9 @@ export default new Vuex.Store({
     notifications: [],
 
     dialogs: {
+      console: {
+        show: false,
+      },
       info: {
         show: false,
         title: null,

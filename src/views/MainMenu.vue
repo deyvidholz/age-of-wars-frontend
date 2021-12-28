@@ -40,9 +40,9 @@
       </v-card>
 
       <div class="text-right blue-grey--text text--lighten-2 mr-3">
-        <small @click="openGithub()" class="cursor-pointer"
-          >v2.0 (Alpha) - Created by Deyvid Holz</small
-        >
+        <small @click="openGithub()" class="cursor-pointer">
+          v2.1.0 (Alpha) - Created by Deyvid Holz
+        </small>
       </div>
     </div>
 
