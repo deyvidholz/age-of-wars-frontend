@@ -74,7 +74,7 @@ export default {
 
   methods: {
     close() {
-      this.show = false;
+      this.$store.state.dialogs.console.show = false;
     },
 
     handleInput(event) {
