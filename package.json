@@ -4,6 +4,7 @@
   "private": true,
   "author": "Deyvid Holz <deyvidholzt@gmail.com>",
   "scripts": {
+    "start": "vue-cli-service build && npm install -g serve && serve -s dist -p 80",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build"
   },
